@@ -5,16 +5,16 @@
   
   <title>linux init.rc service name 过长导致服务不可用的问题 | Shijie&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="linux init.rc 正文在这里 需要使用markdown进行编辑">
+  <meta name="description" content="前段时间在处理一网通问题的时候，遇到了一个很匪夷所思的问题：在init.xxx.rc中增加了一个service，内容是运行一个脚本，编译烧录内核以后，发现这个service 就是不会执行，无论怎么调换位置和格式，就是不能执行，当时的内容如下： service flush_dns_nameserver /system/bin/flush_dns_name.sh     …     … 网上查了一些资">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux init.rc service name 过长导致服务不可用的问题">
 <meta property="og:url" content="http://yoursite.com/2017/06/04/text/index.html">
 <meta property="og:site_name" content="Shijie&#39;s blog">
-<meta property="og:description" content="linux init.rc 正文在这里 需要使用markdown进行编辑">
-<meta property="og:updated_time" content="2017-06-04T04:38:03.398Z">
+<meta property="og:description" content="前段时间在处理一网通问题的时候，遇到了一个很匪夷所思的问题：在init.xxx.rc中增加了一个service，内容是运行一个脚本，编译烧录内核以后，发现这个service 就是不会执行，无论怎么调换位置和格式，就是不能执行，当时的内容如下： service flush_dns_nameserver /system/bin/flush_dns_name.sh     …     … 网上查了一些资">
+<meta property="og:updated_time" content="2017-06-04T14:56:52.906Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux init.rc service name 过长导致服务不可用的问题">
-<meta name="twitter:description" content="linux init.rc 正文在这里 需要使用markdown进行编辑">
+<meta name="twitter:description" content="前段时间在处理一网通问题的时候，遇到了一个很匪夷所思的问题：在init.xxx.rc中增加了一个service，内容是运行一个脚本，编译烧录内核以后，发现这个service 就是不会执行，无论怎么调换位置和格式，就是不能执行，当时的内容如下： service flush_dns_nameserver /system/bin/flush_dns_name.sh     …     … 网上查了一些资">
   
     <link rel="alternate" href="/atom.xml" title="Shijie&#39;s blog" type="application/atom+xml">
   
@@ -54,7 +54,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Zoeken"></a>
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -85,12 +85,70 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>linux init.rc 正文在这里 需要使用markdown进行编辑</p>
+        <p>前段时间在处理一网通问题的时候，遇到了一个很匪夷所思的问题：在init.xxx.rc中增加了一个service，内容是运行一个脚本，编译烧录内核以后，发现这个service 就是不会执行，无论怎么调换位置和格式，就是不能执行，当时的内容如下：</p>
+<p>service flush_dns_nameserver /system/bin/flush_dns_name.sh<br>     …<br>     …</p>
+<p>网上查了一些资料，也没有发现相关的现象。<br>在进行了很多尝试都没有奏效后，我讲service name的长度缩短了一点，缩短成下面这样</p>
+<p>service flush_service  /system/bin/flush_dns_name.sh<br>     …<br>     …</p>
+<p>竟然奇迹的可以了！！！<br>看样子linux在这里做了手脚，我们来看看源码;</p>
+<p>static void <em>parse_service(struct parse_state </em>state, int nargs, char **args)</p>
+<p>{</p>
+<p>struct service *svc;</p>
+<p>if (nargs &lt; 3) {</p>
+<p>parse_error(state, “services must have a name and a program\n”);</p>
+<p>return 0;</p>
+<p>}</p>
+<p>if (!valid_name(args[1])) {</p>
+<p>parse_error(state, “invalid service name ‘%s’\n”, args[1]);</p>
+<p>return 0;</p>
+<p>}</p>
+<p>svc = service_find_by_name(args[1]);</p>
+<p>if (svc) {</p>
+<p>parse_error(state, “ignored duplicate definition of service ‘%s’\n”, args[1]);</p>
+<p>return 0;</p>
+<p>}</p>
+<p>nargs -= 2;</p>
+<p>svc = calloc(1, sizeof(<em>svc) + sizeof(char</em>) * nargs);</p>
+<p>if (!svc) {</p>
+<p>parse_error(state, “out of memory\n”);</p>
+<p>return 0;</p>
+<p>}</p>
+<p>svc-&gt;name = args[1];</p>
+<p>svc-&gt;classname = “default”;</p>
+<p>memcpy(svc-&gt;args, args + 2, sizeof(char<em>) </em> nargs);</p>
+<p>svc-&gt;args[nargs] = 0;</p>
+<p>svc-&gt;nargs = nargs;</p>
+<p>svc-&gt;onrestart.name = “onrestart”;</p>
+<p>list_init(&amp;svc-&gt;onrestart.commands);</p>
+<p>list_add_tail(&amp;service_list, &amp;svc-&gt;slist);</p>
+<p>return svc;</p>
+<p>}</p>
+<p>上面的内容是init_parser.c的函数，作用是解析开机启动脚本（init.xxx.rc）的service section内容。<br>在解析之前，函数进行了一个参数检测</p>
+<p>if (!valid_name(args[1])) {</p>
+<p>parse_error(state, “invalid service name ‘%s’\n”, args[1]);</p>
+<p>return 0;</p>
+<p>}</p>
+<p>args[1] 也就是service name 这里对service name 进行了一个valid判断</p>
+<p>static int valid_name(const char *name)</p>
+<p>{</p>
+<p>if (strlen(name) &gt; 16) {</p>
+<p>return 0;</p>
+<p>}</p>
+<p>while (*name) {</p>
+<p>if (!isalnum(<em>name) &amp;&amp; (</em>name != ‘_’) &amp;&amp; (*name != ‘-‘)) {</p>
+<p>return 0;</p>
+<pre><code>}
+
+name++;
+</code></pre><p>}</p>
+<p>return 1;</p>
+<p>}</p>
+<p>通过原生的代码，我们可以得出一下结论：<br>service name 长度不能超出16个字符<br>service name 命名时可以使用的字符只能是字母数字（0-9a-zA-Z），’_’和 ‘-‘</p>
+<p>因为连续两天有人踩了这个坑，决定追一下源码，填了这个坑</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/06/04/text/" data-id="cj3i7ware0000d0g9gwnr76h3" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2017/06/04/text/" data-id="cj3iu05lm0000m8g9yt1h56jh" class="article-share-link">Share</a>
       
       
     </footer>
@@ -114,7 +172,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archieven</h3>
+    <h3 class="widget-title">归档</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li></ul>
     </div>
@@ -124,7 +182,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recente berichten</h3>
+    <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
         
