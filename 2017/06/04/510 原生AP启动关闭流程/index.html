@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="热爱，热情，乐此不疲"/>
+        <meta property="og:title" content="510 原生AP启动和关闭流程解析"/>
     
 
     <!--Open Graph Description-->
@@ -33,7 +33,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -44,7 +44,7 @@
 
     <!-- Title -->
     
-    <title>热爱，热情，乐此不疲</title>
+    <title>510 原生AP启动和关闭流程解析 - 热爱，热情，乐此不疲</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -139,17 +139,14 @@
     <div class="logo">
         <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
         
-            <h1 id="main-title" class="title">热爱，热情，乐此不疲</h1>
-        
     </div>
 </header>
 
         <section class="main">
             
-                
 <div class="post">
 
-    <div class="post-header index">
+    <div class="post-header">
         <h1 class="title">
             <a href="/2017/06/04/510 原生AP启动关闭流程/">
                 510 原生AP启动和关闭流程解析
@@ -164,9 +161,13 @@
         </div>
     </div>
 
-    
-        <div class="content">
-            <h1 id="510-原生AP启动和关闭流程解析"><a href="#510-原生AP启动和关闭流程解析" class="headerlink" title="510 原生AP启动和关闭流程解析"></a>510 原生AP启动和关闭流程解析</h1><hr>
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <h1 id="510-原生AP启动和关闭流程解析"><a href="#510-原生AP启动和关闭流程解析" class="headerlink" title="510 原生AP启动和关闭流程解析"></a>510 原生AP启动和关闭流程解析</h1><hr>
 <h2 id="一-原生AP打开流程"><a href="#一-原生AP打开流程" class="headerlink" title="一. 原生AP打开流程"></a>一. 原生AP打开流程</h2><ul>
 <li>当我们在Setting菜单中打卡原生AP的开关后，会执行如下代码<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Android/packages/apps/Settings/src/com/android/settings/TetherSettings.java</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onPreferenceChange</span><span class="params">(Preference preference, Object value)</span> </span>&#123;</div><div class="line">    <span class="keyword">boolean</span> enable = (Boolean) value;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (enable) &#123; <span class="comment">//想要打开</span></div><div class="line">        startProvisioningIfNecessary(WIFI_TETHERING); <span class="comment">//WIFI_TETHERING 通过wifi进行热点的分享</span></div><div class="line">    &#125; <span class="keyword">else</span> &#123; <span class="comment">//想要关闭</span></div><div class="line">        <span class="keyword">if</span> (isProvisioningNeeded(mProvisionApp)) &#123; </div><div class="line">            TetherService.cancelRecheckAlarmIfNecessary(getActivity(), WIFI_TETHERING);</div><div class="line">        &#125;   </div><div class="line">        mWifiApEnabler.setSoftapEnabled(<span class="keyword">false</span>);</div><div class="line">    &#125;   </div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">&#125;</div><div class="line">`</div></pre></td></tr></table></figure>
 </li>
@@ -206,65 +207,25 @@
 <p>向状态机发送 CMD_START_AP_SUCCESS<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Android/frameworks/opt/net/wifi/service/java/com/android/server/wifi/WifiStateMachine.java</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">SoftApStartingState</span> <span class="keyword">extends</span> <span class="title">State</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">processMessage</span><span class="params">(Message message)</span> </span>&#123;</div><div class="line">    <span class="keyword">case</span> CMD_START_AP_SUCCESS:</div><div class="line">        setWifiApState(WIFI_AP_STATE_ENABLED);</div><div class="line">        transitionTo(mSoftApStartedState);</div><div class="line">        <span class="keyword">break</span>;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">`</div></pre></td></tr></table></figure></p>
 <p>发送广播，AP已经设置，将状态切到mSoftApStartedState<br>此时，这个原生ap，就启动成功了</p>
 
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2017/06/04/Linux init.rc Service Name 过长导致服务不可用的问题 - 副本/">
-                Linux init.rc Service Name 过长导致服务不可用的问题
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2017-06-04</span>
-            
-            
-            
-        </div>
     </div>
 
     
-        <div class="content">
-            <h1 id="linux-init-rc-service-name-过长导致服务不可用的问题"><a href="#linux-init-rc-service-name-过长导致服务不可用的问题" class="headerlink" title="linux init.rc service name 过长导致服务不可用的问题"></a>linux init.rc service name 过长导致服务不可用的问题</h1><hr>
-<blockquote>
-<p>前段时间在处理一网通问题的时候，遇到了一个很匪夷所思的问题：在init.xxx.rc中增加了一个service，内容是运行一个脚本，编译烧录内核以后，发现这个service 就是不会执行，无论怎么调换位置和格式，就是不能执行，当时的内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">service flush_dns_nameserver /system/bin/flush_dns_name.sh</div><div class="line">    ...</div><div class="line">    ...</div></pre></td></tr></table></figure></p>
-<p>  网上查了一些资料，也没有发现相关的现象。在进行了很多尝试都没有奏效后，我将service name的长度缩短了一点，缩短成下面这样<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">service flush_service  /system/bin/flush_dns_name.sh</div><div class="line">    ...</div><div class="line">    ...</div></pre></td></tr></table></figure></p>
-</blockquote>
-<p><strong>竟然奇迹的可以了！！！</strong> 看样子linux在这里做了手脚，我们来看看源码:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> *<span class="title">parse_service</span><span class="params">(struct parse_state *state, <span class="keyword">int</span> nargs, <span class="keyword">char</span> **args)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">service</span> *<span class="title">svc</span>;</span></div><div class="line">    <span class="keyword">if</span> (nargs &lt; <span class="number">3</span>) &#123;</div><div class="line">        parse_error(state, <span class="string">"services must have a name and a program\n"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;   </div><div class="line">    <span class="keyword">if</span> (!valid_name(args[<span class="number">1</span>])) &#123;</div><div class="line">        parse_error(state, <span class="string">"invalid service name '%s'\n"</span>, args[<span class="number">1</span>]);</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;   </div><div class="line"></div><div class="line">    svc = service_find_by_name(args[<span class="number">1</span>]);</div><div class="line">    <span class="keyword">if</span> (svc) &#123;</div><div class="line">        parse_error(state, <span class="string">"ignored duplicate definition of service '%s'\n"</span>, args[<span class="number">1</span>]);</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;   </div><div class="line"></div><div class="line">    nargs -= <span class="number">2</span>;</div><div class="line">    svc = <span class="built_in">calloc</span>(<span class="number">1</span>, <span class="keyword">sizeof</span>(*svc) + <span class="keyword">sizeof</span>(<span class="keyword">char</span>*) * nargs);</div><div class="line">    <span class="keyword">if</span> (!svc) &#123;</div><div class="line">        parse_error(state, <span class="string">"out of memory\n"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;   </div><div class="line">    svc-&gt;name = args[<span class="number">1</span>];</div><div class="line">    svc-&gt;classname = <span class="string">"default"</span>;</div><div class="line">    <span class="built_in">memcpy</span>(svc-&gt;args, args + <span class="number">2</span>, <span class="keyword">sizeof</span>(<span class="keyword">char</span>*) * nargs);</div><div class="line">    svc-&gt;args[nargs] = <span class="number">0</span>;</div><div class="line">    svc-&gt;nargs = nargs;</div><div class="line">    svc-&gt;onrestart.name = <span class="string">"onrestart"</span>;</div><div class="line">    list_init(&amp;svc-&gt;onrestart.commands);</div><div class="line">    list_add_tail(&amp;service_list, &amp;svc-&gt;slist);</div><div class="line">    <span class="keyword">return</span> svc;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>上面的内容是init_parser.c的函数，作用是解析开机启动脚本（init.xxx.rc）的service section内容。在解析之前，函数进行了一个参数检测</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (!valid_name(args[<span class="number">1</span>])) &#123;</div><div class="line">    parse_error(state, <span class="string">"invalid service name '%s'\n"</span>, args[<span class="number">1</span>]);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><strong>args[1] 也就是service name 这里对service name 进行了一个valid判断</strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">valid_name</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *name)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="built_in">strlen</span>(name) &gt; <span class="number">16</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span> (*name) &#123;</div><div class="line">        <span class="keyword">if</span> (!<span class="built_in">isalnum</span>(*name) &amp;&amp; (*name != <span class="string">'_'</span>) &amp;&amp; (*name != <span class="string">'-'</span>)) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        name++;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>通过原生的代码，我们可以得出一下结论：</p>
-<blockquote>
-<ul>
-<li>service name 长度不能超出16个字符</li>
-<li>service name 命名时可以使用的字符只能是字母数字（0-9a-zA-Z），’_’和 ‘-‘</li>
-</ul>
-</blockquote>
-<p>因为连续两天有人踩了这个坑，决定追一下源码，填了这个坑</p>
 
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/tags/Android-softap/">#Android softap</a>
         </div>
     
 
+    <!-- Comments -->
+    
+
 </div>
-            
         </section>
+
     </div>
 </div>
-
-
-
-
-
 
 </div>
 
