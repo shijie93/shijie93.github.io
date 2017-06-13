@@ -100,7 +100,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/06/12/Android-wifi-start/index.html">
 <meta property="og:site_name" content="热爱，热情，乐此不疲">
 <meta property="og:description" content="Android wifi 启动流程详细分析1.Android 版本 Android 5.1  2.目的 了解Android wifi 启动过程中的消息传递，状态机切换，以及必要的操作等  3.具体流程当我在Setting菜单里点击打开Wifi时，调用的入口函数是WifiManager::setWifiEnabled(boolean enabled)：12345678910111213/**  *">
-<meta property="og:updated_time" content="2017-06-13T09:39:29.136Z">
+<meta property="og:updated_time" content="2017-06-13T09:48:02.838Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Wifi 启动流程详细分析">
 <meta name="twitter:description" content="Android wifi 启动流程详细分析1.Android 版本 Android 5.1  2.目的 了解Android wifi 启动过程中的消息传递，状态机切换，以及必要的操作等  3.具体流程当我在Setting菜单里点击打开Wifi时，调用的入口函数是WifiManager::setWifiEnabled(boolean enabled)：12345678910111213/**  *">
@@ -353,7 +353,7 @@
 <li>WifiNative.loadDriver()：加载Wifi驱动，实际的实现是在wifi.c中</li>
 <li>NetworkManagementService.wifiFirmwareReload(mInterfaceName, “STA”)：加载wlan固件</li>
 <li>WifiNative.startSupplicant(mP2pSupported)：启动wpa_supplicant</li>
-<li>WifiMonitor.startMonitoring()：在前面一篇博文中已经介绍过WifiMonitor，这一步主要是在WifiMonitor中建立与wpa_supplicant通信的socket通道、创建一个线程接收底层事件并分发处理。这里会创建两个socket通道与wpa_s通信，一个用于下发指令，另一个用于接收事件。成功后WifiMonitor会向WifiStateMachine发送一个代表socket通信建立成功的消息：SUP_CONNECTION_EVENT；收到这个消息就表示Wifi已经启动成功了。</li>
+<li>WifiMonitor.startMonitoring()：这一步主要是在WifiMonitor中建立与wpa_supplicant通信的socket通道、创建一个线程接收底层事件并分发处理。这里会创建两个socket通道与wpa_s通信，一个用于下发指令，另一个用于接收事件。成功后WifiMonitor会向WifiStateMachine发送一个代表socket通信建立成功的消息：SUP_CONNECTION_EVENT；收到这个消息就表示Wifi已经启动成功了。</li>
 <li>切换到SupplicantStartingState。</li>
 </ul>
 <p>进入SupplicantStartingState后，第一个消息就处理完毕，这时消息队列中按处理先后顺序仍有三个消息：</p>
