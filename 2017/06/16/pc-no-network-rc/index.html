@@ -96,13 +96,13 @@
 <meta name="description" content="问题由来前段时间，公司的一款产品，使用了新的一网通框架，发现PC端无法访问内网的域名，导致某个功能无法正常运转，这个问题交到我手上，刚开始对这一方面实在是不熟悉，不知道从哪里入手，后来经过对计算机网络知识的了解，以及一些代码脚本的研读，发现是因为dnsmasq的配置出现了问题。  本文的目的接着上文一网通PC无法解析内网域名-dnsmasq，来解析如何进行动态更新dns上游服务器 dnsmasq">
 <meta name="keywords" content="一网通">
 <meta property="og:type" content="article">
-<meta property="og:title" content="一网通PC无法解析内网域名-Dnsmasq--Dns上游服务器的动态配置">
+<meta property="og:title" content="一网通PC无法解析内网域名-Dns上游服务器的动态配置">
 <meta property="og:url" content="http://yoursite.com/2017/06/16/pc-no-network-rc/index.html">
 <meta property="og:site_name" content="热爱，热情，乐此不疲">
 <meta property="og:description" content="问题由来前段时间，公司的一款产品，使用了新的一网通框架，发现PC端无法访问内网的域名，导致某个功能无法正常运转，这个问题交到我手上，刚开始对这一方面实在是不熟悉，不知道从哪里入手，后来经过对计算机网络知识的了解，以及一些代码脚本的研读，发现是因为dnsmasq的配置出现了问题。  本文的目的接着上文一网通PC无法解析内网域名-dnsmasq，来解析如何进行动态更新dns上游服务器 dnsmasq">
-<meta property="og:updated_time" content="2017-06-16T05:43:24.885Z">
+<meta property="og:updated_time" content="2017-06-16T05:46:42.418Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一网通PC无法解析内网域名-Dnsmasq--Dns上游服务器的动态配置">
+<meta name="twitter:title" content="一网通PC无法解析内网域名-Dns上游服务器的动态配置">
 <meta name="twitter:description" content="问题由来前段时间，公司的一款产品，使用了新的一网通框架，发现PC端无法访问内网的域名，导致某个功能无法正常运转，这个问题交到我手上，刚开始对这一方面实在是不熟悉，不知道从哪里入手，后来经过对计算机网络知识的了解，以及一些代码脚本的研读，发现是因为dnsmasq的配置出现了问题。  本文的目的接着上文一网通PC无法解析内网域名-dnsmasq，来解析如何进行动态更新dns上游服务器 dnsmasq">
 
 
@@ -137,7 +137,7 @@
 
 
 
-  <title>一网通PC无法解析内网域名-Dnsmasq--Dns上游服务器的动态配置 | 热爱，热情，乐此不疲</title>
+  <title>一网通PC无法解析内网域名-Dns上游服务器的动态配置 | 热爱，热情，乐此不疲</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -274,7 +274,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">一网通PC无法解析内网域名-Dnsmasq--Dns上游服务器的动态配置</h1>
+          <h1 class="post-title" itemprop="name headline">一网通PC无法解析内网域名-Dns上游服务器的动态配置</h1>
         
 
         <div class="post-meta">
@@ -324,7 +324,7 @@
         <blockquote>
 <h2 id="问题由来"><a href="#问题由来" class="headerlink" title="问题由来"></a>问题由来</h2><p>前段时间，公司的一款产品，使用了新的一网通框架，发现PC端无法访问内网的域名，导致某个功能无法正常运转，这个问题交到我手上，刚开始对这一方面实在是不熟悉，不知道从哪里入手，后来经过对计算机网络知识的了解，以及一些代码脚本的研读，发现是因为dnsmasq的配置出现了问题。</p>
 </blockquote>
-<h2 id="本文的目的"><a href="#本文的目的" class="headerlink" title="本文的目的"></a>本文的目的</h2><p>接着上文<a href="https://shijie93.github.io/2017/06/14/pc-no-network-dnsmasq/" target="_blank" rel="external">一网通PC无法解析内网域名-dnsmasq</a>，来解析如何进行动态更新dns上游服务器</p>
+<h2 id="本文的目的"><a href="#本文的目的" class="headerlink" title="本文的目的"></a>本文的目的</h2><p>接着上文<a href="https://shijie93.github.io/2017/06/16/pc-no-network-dnsmasq/" target="_blank" rel="external">一网通PC无法解析内网域名-dnsmasq</a>，来解析如何进行动态更新dns上游服务器</p>
 <h2 id="dnsmasq简单介绍"><a href="#dnsmasq简单介绍" class="headerlink" title="dnsmasq简单介绍"></a>dnsmasq简单介绍</h2><p><a href="https://wiki.archlinux.org/index.php/Dnsmasq" target="_blank" rel="external">Dnsmasq</a> 提供 DNS 缓存和 DHCP 服务功能。作为域名解析服务器(DNS)，dnsmasq可以通过缓存 DNS 请求来提高对访问过的网址的连接速度。作为DHCP 服务器，dnsmasq 可以用于为局域网电脑分配内网ip地址和提供路由。DNS和DHCP两个功能可以同时或分别单独实现。dnsmasq轻量且易配置，适用于个人用户或少于50台主机的网络。此外它还自带了一个 PXE 服务器, <a href="http://www.thekelleys.org.uk/dnsmasq/docs/dnsmasq-man.html" target="_blank" rel="external">Dnsmasq配置文件</a>是 /etc/dnsmasq.conf.</p>
 <h2 id="linux-init-rc启动脚本简单介绍"><a href="#linux-init-rc启动脚本简单介绍" class="headerlink" title="linux init.rc启动脚本简单介绍"></a>linux init.rc启动脚本简单介绍</h2><p>这部分不在我们这边文章的范围内，有兴趣可以通过这篇文章作简单的了解-<a href="http://blog.csdn.net/flydream0/article/details/7458332" target="_blank" rel="external">Android init.rc文件浅析</a></p>
 <h2 id="动态加载的流程"><a href="#动态加载的流程" class="headerlink" title="动态加载的流程"></a>动态加载的流程</h2><h3 id="获取到dns的更改"><a href="#获取到dns的更改" class="headerlink" title="获取到dns的更改"></a>获取到dns的更改</h3><p>通过Android源码的追踪，定位到在网络环境更改后，dns被重新写入的地方，在此处进行一个系统属性的建立<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">updateDnses</span><span class="params">(LinkProperties newLp, LinkProperties oldLp, <span class="keyword">int</span> netId,</span></span></div><div class="line">                            <span class="keyword">boolean</span> flush, <span class="keyword">boolean</span> useDefaultDns) &#123;</div><div class="line">    <span class="keyword">if</span> (oldLp == <span class="keyword">null</span> || (newLp.isIdenticalDnses(oldLp) == <span class="keyword">false</span>)) &#123;</div><div class="line">        Collection&lt;InetAddress&gt; dnses = newLp.getDnsServers();</div><div class="line">        <span class="keyword">if</span> (dnses.size() == <span class="number">0</span> &amp;&amp; mDefaultDns != <span class="keyword">null</span> &amp;&amp; useDefaultDns) &#123;</div><div class="line">            dnses = <span class="keyword">new</span> ArrayList();</div><div class="line">            dnses.add(mDefaultDns);</div><div class="line">            <span class="keyword">if</span> (DBG) &#123;</div><div class="line">                loge(<span class="string">"no dns provided for netId "</span> + netId + <span class="string">", so using defaults"</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (DBG) log(<span class="string">"Setting Dns servers for network "</span> + netId + <span class="string">" to "</span> + dnses);</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            mNetd.setDnsServersForNetwork(netId, NetworkUtils.makeStrings(dnses),</div><div class="line">                newLp.getDomains());</div><div class="line">            SystemProperties.set(<span class="string">"sys.dns.change"</span>, <span class="string">"1"</span>); <span class="comment">// 设置我们自己创建的系统属性，用来出发脚本的service</span></div><div class="line"></div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">            loge(<span class="string">"Exception in setDnsServersForNetwork: "</span> + e);</div><div class="line">        &#125;</div><div class="line">        NetworkAgentInfo defaultNai = mNetworkForRequestId.get(mDefaultRequest.requestId);</div><div class="line">        <span class="keyword">if</span> (defaultNai != <span class="keyword">null</span> &amp;&amp; defaultNai.network.netId == netId) &#123;</div><div class="line">            setDefaultDnsSystemProperties(dnses);</div><div class="line">        &#125;</div><div class="line">        flushVmDnsCache();</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (flush) &#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            mNetd.flushNetworkDnsCache(netId);</div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">            loge(<span class="string">"Exception in flushNetworkDnsCache: "</span> + e);</div><div class="line">        &#125;</div><div class="line">        flushVmDnsCache();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
