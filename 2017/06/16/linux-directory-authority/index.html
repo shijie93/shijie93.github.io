@@ -1,0 +1,758 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="一般而言，在linux中，文件的权限分为读，写和执行，顾名思义，读即为读取文件的信息和内容，写即为改变文件的内容和信息，执行，如果文件可执行的话，可以当做一个二进制文件运行。目录，作为linux中的另一种文件形式，本身也有读，写和执行三种属性，那么这与目录又有什么关系呢  文本和目录123456shijie930806@os05:test$ lltotal 12drwxr-xr-x  3 shi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 目录的权限剖析">
+<meta property="og:url" content="http://yoursite.com/2017/06/16/linux-directory-authority/index.html">
+<meta property="og:site_name" content="热爱，热情，乐此不疲">
+<meta property="og:description" content="一般而言，在linux中，文件的权限分为读，写和执行，顾名思义，读即为读取文件的信息和内容，写即为改变文件的内容和信息，执行，如果文件可执行的话，可以当做一个二进制文件运行。目录，作为linux中的另一种文件形式，本身也有读，写和执行三种属性，那么这与目录又有什么关系呢  文本和目录123456shijie930806@os05:test$ lltotal 12drwxr-xr-x  3 shi">
+<meta property="og:updated_time" content="2017-06-16T12:27:24.801Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux 目录的权限剖析">
+<meta name="twitter:description" content="一般而言，在linux中，文件的权限分为读，写和执行，顾名思义，读即为读取文件的信息和内容，写即为改变文件的内容和信息，执行，如果文件可执行的话，可以当做一个二进制文件运行。目录，作为linux中的另一种文件形式，本身也有读，写和执行三种属性，那么这与目录又有什么关系呢  文本和目录123456shijie930806@os05:test$ lltotal 12drwxr-xr-x  3 shi">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/16/linux-directory-authority/"/>
+
+
+
+
+
+  <title>Linux 目录的权限剖析 | 热爱，热情，乐此不疲</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">热爱，热情，乐此不疲</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">人外有人 天外有天</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/16/linux-directory-authority/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shi jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="热爱，热情，乐此不疲">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux 目录的权限剖析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-16T19:49:21+08:00">
+                2017-06-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>一般而言，在linux中，文件的权限分为读，写和执行，顾名思义，读即为读取文件的信息和内容，写即为改变文件的内容和信息，执行，如果文件可执行的话，可以当做一个二进制文件运行。目录，作为linux中的另一种文件形式，本身也有读，写和执行三种属性，那么这与目录又有什么关系呢</p>
+</blockquote>
+<h2 id="文本和目录"><a href="#文本和目录" class="headerlink" title="文本和目录"></a>文本和目录</h2><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function">shijie930806@os05:<span class="title">test</span>$ <span class="title">ll</span></span></div><div class="line"><span class="title">total</span> 12</div><div class="line"><span class="title">drwxr</span>-<span class="title">xr</span>-<span class="title">x</span>  3 <span class="title">shijie</span> <span class="title">root</span>   4096 <span class="title">Jun</span> 16 19:52 ./</div><div class="line"><span class="title">drwxrwx</span>--- 25 <span class="title">shijie</span> <span class="title">root</span>   4096 <span class="title">Jun</span> 16 19:47 ../</div><div class="line"><span class="title">drwxrwx</span>---  2 <span class="title">shijie</span> <span class="title">shijie</span> 4096 <span class="title">Jun</span> 16 19:38 <span class="title">direct</span>/</div><div class="line">-<span class="title">rw</span>-<span class="title">r</span>--<span class="title">r</span>--  1 <span class="title">shijie</span> <span class="title">root</span>      0 <span class="title">Jun</span> 16 19:52 <span class="title">file</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>此处母目录test的权限为rwx</p>
+</blockquote>
+<h3 id="权限为d——"><a href="#权限为d——" class="headerlink" title="权限为d——-"></a>权限为d——-</h3><p>当前命令行的执行人为user：shijie</p>
+<ul>
+<li>打开目录 –失败</li>
+<li>查看目录 –失败</li>
+<li>创建文件 –失败</li>
+<li>删除文件 –失败</li>
+<li>删除目录 –失败</li>
+<li>删除空目录 –成功</li>
+</ul>
+<h3 id="权限为dr——"><a href="#权限为dr——" class="headerlink" title="权限为dr——"></a>权限为dr——</h3><p>当前命令行的执行人为user：shijie</p>
+<ul>
+<li>打开目录 –失败</li>
+<li>查看目录 –只能读取到目录中的文件名，文件信息无法获得</li>
+<li>创建文件 –失败</li>
+<li>删除文件 –失败</li>
+<li>删除目录 –失败</li>
+<li>删除空目录 –成功</li>
+</ul>
+<h3 id="权限为d-w—–"><a href="#权限为d-w—–" class="headerlink" title="权限为d-w—–"></a>权限为d-w—–</h3><p>当前命令行的执行人为user：shijie</p>
+<ul>
+<li>打开目录 –失败</li>
+<li>查看目录 –失败</li>
+<li>创建文件 –失败</li>
+<li>删除文件 –失败</li>
+<li>删除目录 –失败</li>
+<li>删除空目录 –成功</li>
+</ul>
+<h3 id="权限为d–x—"><a href="#权限为d–x—" class="headerlink" title="权限为d–x—-"></a>权限为d–x—-</h3><p>当前命令行的执行人为user：shijie</p>
+<ul>
+<li>打开目录 –成功</li>
+<li>查看目录 –失败</li>
+<li>创建文件 –失败</li>
+<li>删除文件 –失败</li>
+<li>删除目录 –失败</li>
+<li>删除空目录 –成功</li>
+</ul>
+<h3 id="权限为drw—–"><a href="#权限为drw—–" class="headerlink" title="权限为drw—–"></a>权限为drw—–</h3><p>当前命令行的执行人为user：shijie</p>
+<ul>
+<li>打开目录 –失败</li>
+<li>查看目录 –只能读取到目录中的文件名，文件信息无法获得</li>
+<li>创建文件 –失败</li>
+<li>删除文件 –失败</li>
+<li>删除目录 –失败</li>
+<li>删除空目录 –成功</li>
+</ul>
+<h3 id="权限为dr-x—"><a href="#权限为dr-x—" class="headerlink" title="权限为dr-x—-"></a>权限为dr-x—-</h3><p>当前命令行的执行人为user：shijie</p>
+<ul>
+<li>打开目录 –成功</li>
+<li>查看目录 –成功</li>
+<li>创建文件 –失败</li>
+<li>删除文件 –失败</li>
+<li>删除目录 –失败</li>
+<li>删除空目录 –成功</li>
+</ul>
+<h3 id="权限为d-wx—"><a href="#权限为d-wx—" class="headerlink" title="权限为d-wx—-"></a>权限为d-wx—-</h3><p>当前命令行的执行人为user：shijie</p>
+<ul>
+<li>打开目录 –成功</li>
+<li>查看目录 –失败</li>
+<li>创建文件 –成功</li>
+<li>删除文件 –成功</li>
+<li>删除目录 –失败</li>
+<li>删除空目录 –成功</li>
+</ul>
+<h3 id="权限为drwx—"><a href="#权限为drwx—" class="headerlink" title="权限为drwx—-"></a>权限为drwx—-</h3><p>当前命令行的执行人为user：shijie</p>
+<ul>
+<li>打开目录 –成功</li>
+<li>查看目录 –成功</li>
+<li>创建文件 –成功</li>
+<li>删除文件 –成功</li>
+<li>删除目录 –成功</li>
+<li>删除空目录 –成功</li>
+</ul>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><ol>
+<li>打开目录，必须有可执行的权限</li>
+<li>查看目录内的文件名相当于文本文件的读取内容，至少需要可读的权限</li>
+<li>查看目录内文件的所有信息，至少需要同时有可读和可执行的权限</li>
+<li>在目录内创建文件，至少需要同时有可写和可执行的权限</li>
+<li>删除目录内的文件，至少需要同时有可写和可执行的权限</li>
+<li>删除非空的目录，必须具有所有的权限</li>
+<li>删除空目录，与母目录的权限有关，同上</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/16/pc-no-network-rc/" rel="next" title="一网通PC无法解析内网域名-Dns上游服务器的动态配置">
+                <i class="fa fa-chevron-left"></i> 一网通PC无法解析内网域名-Dns上游服务器的动态配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Shi jie" />
+          <p class="site-author-name" itemprop="name">Shi jie</p>
+           
+              <p class="site-description motion-element" itemprop="description">这是一个有趣的程序员的博客</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文本和目录"><span class="nav-number">1.</span> <span class="nav-text">文本和目录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#权限为d——"><span class="nav-number">1.1.</span> <span class="nav-text">权限为d——-</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#权限为dr——"><span class="nav-number">1.2.</span> <span class="nav-text">权限为dr——</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#权限为d-w—–"><span class="nav-number">1.3.</span> <span class="nav-text">权限为d-w—–</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#权限为d–x—"><span class="nav-number">1.4.</span> <span class="nav-text">权限为d–x—-</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#权限为drw—–"><span class="nav-number">1.5.</span> <span class="nav-text">权限为drw—–</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#权限为dr-x—"><span class="nav-number">1.6.</span> <span class="nav-text">权限为dr-x—-</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#权限为d-wx—"><span class="nav-number">1.7.</span> <span class="nav-text">权限为d-wx—-</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#权限为drwx—"><span class="nav-number">1.8.</span> <span class="nav-text">权限为drwx—-</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结论"><span class="nav-number">2.</span> <span class="nav-text">结论</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shi jie</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
