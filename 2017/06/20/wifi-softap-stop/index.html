@@ -1,0 +1,689 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android softap," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="回顾打开流程打开流程可以在510 原生AP启动和关闭流程解析知悉，了解了打开流程，会对关闭的过程有一个大致的思路。 关闭流程代码解析当我们在Setting菜单中打卡原生AP的开关后，会执行如下代码12345678910111213//Android/packages/apps/Settings/src/com/android/settings/TetherSettings.javapublic b">
+<meta name="keywords" content="Android softap">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 原生AP关闭流程解析">
+<meta property="og:url" content="http://yoursite.com/2017/06/20/wifi-softap-stop/index.html">
+<meta property="og:site_name" content="热爱，热情，乐此不疲">
+<meta property="og:description" content="回顾打开流程打开流程可以在510 原生AP启动和关闭流程解析知悉，了解了打开流程，会对关闭的过程有一个大致的思路。 关闭流程代码解析当我们在Setting菜单中打卡原生AP的开关后，会执行如下代码12345678910111213//Android/packages/apps/Settings/src/com/android/settings/TetherSettings.javapublic b">
+<meta property="og:updated_time" content="2017-06-22T03:10:21.293Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 原生AP关闭流程解析">
+<meta name="twitter:description" content="回顾打开流程打开流程可以在510 原生AP启动和关闭流程解析知悉，了解了打开流程，会对关闭的过程有一个大致的思路。 关闭流程代码解析当我们在Setting菜单中打卡原生AP的开关后，会执行如下代码12345678910111213//Android/packages/apps/Settings/src/com/android/settings/TetherSettings.javapublic b">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/20/wifi-softap-stop/"/>
+
+
+
+
+
+  <title>Android 原生AP关闭流程解析 | 热爱，热情，乐此不疲</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">热爱，热情，乐此不疲</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">人外有人 天外有天</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/20/wifi-softap-stop/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shi jie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="热爱，热情，乐此不疲">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android 原生AP关闭流程解析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-20T17:07:51+08:00">
+                2017-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="回顾打开流程"><a href="#回顾打开流程" class="headerlink" title="回顾打开流程"></a>回顾打开流程</h2><p>打开流程可以在<a href="https://shijie93.github.io/2017/06/07/Android-softap-start/" target="_blank" rel="external">510 原生AP启动和关闭流程解析</a>知悉，了解了打开流程，会对关闭的过程有一个大致的思路。</p>
+<h2 id="关闭流程代码解析"><a href="#关闭流程代码解析" class="headerlink" title="关闭流程代码解析"></a>关闭流程代码解析</h2><p>当我们在Setting菜单中打卡原生AP的开关后，会执行如下代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Android/packages/apps/Settings/src/com/android/settings/TetherSettings.java</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onPreferenceChange</span><span class="params">(Preference preference, Object value)</span> </span>&#123;</div><div class="line">    <span class="keyword">boolean</span> enable = (Boolean) value;</div><div class="line">    <span class="keyword">if</span> (enable) &#123; <span class="comment">//想要打开</span></div><div class="line">        startProvisioningIfNecessary(WIFI_TETHERING); <span class="comment">//WIFI_TETHERING 通过wifi进行热点的分享</span></div><div class="line">    &#125; <span class="keyword">else</span> &#123; <span class="comment">//想要关闭</span></div><div class="line">        <span class="keyword">if</span> (isProvisioningNeeded(mProvisionApp)) &#123; </div><div class="line">            TetherService.cancelRecheckAlarmIfNecessary(getActivity(), WIFI_TETHERING);</div><div class="line">        &#125;   </div><div class="line">        mWifiApEnabler.setSoftapEnabled(<span class="keyword">false</span>); <span class="comment">//进入wifiApEnabler 调用 setSoftapEnabled</span></div><div class="line">    &#125;   </div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>来看一下mWifiApEnabler.setSoftapEnabled(false)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Android/packages/apps/Settings/src/com/android/settings/wifi/WifiApEnabler.java</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSoftapEnabled</span><span class="params">(<span class="keyword">boolean</span> enable)</span> </span>&#123;</div><div class="line">        <span class="keyword">final</span> ContentResolver cr = mContext.getContentResolver();</div><div class="line">        <span class="comment">/**</span></div><div class="line">         * Disable Wifi if enabling tethering</div><div class="line">         */</div><div class="line">        <span class="keyword">int</span> wifiState = mWifiManager.getWifiState();<span class="comment">//获取wifi状态</span></div><div class="line">        <span class="keyword">if</span> (enable &amp;&amp; ((wifiState == WifiManager.WIFI_STATE_ENABLING) ||</div><div class="line">                    (wifiState == WifiManager.WIFI_STATE_ENABLED))) &#123;</div><div class="line">            mWifiManager.setWifiEnabled(<span class="keyword">false</span>);<span class="comment">// 关闭WIFI</span></div><div class="line">            Settings.Global.putInt(cr, Settings.Global.WIFI_SAVED_STATE, <span class="number">1</span>);<span class="comment">// 记录WIIF状态</span></div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (mWifiManager.setWifiApEnabled(<span class="keyword">null</span>, enable)) &#123;  <span class="comment">//进入 WifiManager 调用 setSoftapEnabled</span></div><div class="line">            <span class="keyword">if</span> (mSwitch != <span class="keyword">null</span>) &#123;</div><div class="line">                <span class="comment">/* Disable here, enabled on receiving success broadcast */</span></div><div class="line">                mSwitch.setEnabled(<span class="keyword">false</span>);</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">if</span> (mSwitch != <span class="keyword">null</span>) &#123;</div><div class="line">                mSwitch.setSummary(R.string.wifi_error);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">/**</span></div><div class="line">         *  If needed, restore Wifi on tether disable</div><div class="line">         */</div><div class="line">        <span class="keyword">if</span> (!enable) &#123;</div><div class="line">            <span class="keyword">int</span> wifiSavedState = <span class="number">0</span>;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                wifiSavedState = Settings.Global.getInt(cr, Settings.Global.WIFI_SAVED_STATE);<span class="comment">//获取保存的wifi状态</span></div><div class="line">            &#125; <span class="keyword">catch</span> (Settings.SettingNotFoundException e) &#123;</div><div class="line">                ;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (wifiSavedState == <span class="number">1</span>) &#123;</div><div class="line">                mWifiManager.setWifiEnabled(<span class="keyword">true</span>); <span class="comment">//恢复wifi为开启的状态</span></div><div class="line">                Settings.Global.putInt(cr, Settings.Global.WIFI_SAVED_STATE, <span class="number">0</span>);<span class="comment">//修改状态</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>执行 mWifiManager.setWifiApEnabled(null, enable)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Android/frameworks/base/wifi/java/android/net/wifi/WifiManager.java</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">setWifiApEnabled</span><span class="params">(WifiConfiguration wifiConfig, <span class="keyword">boolean</span> enabled)</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            mService.setWifiApEnabled(wifiConfig, enabled); <span class="comment">// 通过AIDL</span></div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125; <span class="keyword">catch</span> (RemoteException e) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>通过AIDL，执行WifiServiceImpl.setWifiApEnabled(null,enabled)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Android/frameworks/opt/net/wifi/service/java/com/android/server/wifi/WifiServiceImpl.java</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setWifiApEnabled</span><span class="params">(WifiConfiguration wifiConfig, <span class="keyword">boolean</span> enabled)</span> </span>&#123;</div><div class="line">    enforceChangePermission();</div><div class="line">    ConnectivityManager.enforceTetherChangePermission(mContext);</div><div class="line">    UserManager um = UserManager.get(mContext);</div><div class="line">    <span class="keyword">if</span> (um.hasUserRestriction(UserManager.DISALLOW_CONFIG_TETHERING)) &#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> SecurityException(<span class="string">"DISALLOW_CONFIG_TETHERING is enabled for this user."</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// null wifiConfig is a meaningful input for CMD_SET_AP</span></div><div class="line">    <span class="keyword">if</span> (wifiConfig == <span class="keyword">null</span> || wifiConfig.isValid()) &#123; <span class="comment">//wifiConfig可以是空</span></div><div class="line">        mWifiController.obtainMessage(CMD_SET_AP, enabled ? <span class="number">1</span> : <span class="number">0</span>, <span class="number">0</span>, wifiConfig).sendToTarget();<span class="comment">//发送CMD_SET_AP的消息给 WifiController</span></div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        Slog.e(TAG, <span class="string">"Invalid WifiConfiguration"</span>);</div><div class="line">    &#125;   </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>enabled=false所以CMD_SET_AP消息发出，并且参数为 0</p>
+<p>因为关闭热点之前，wificontroller的状态机的状态是停留在 mApEnabledState，下面是此状态的代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ApEnabledState</span> <span class="keyword">extends</span> <span class="title">State</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">processMessage</span><span class="params">(Message msg)</span> </span>&#123;</div><div class="line">        <span class="keyword">switch</span> (msg.what) &#123;</div><div class="line">            <span class="keyword">case</span> CMD_AIRPLANE_TOGGLED:</div><div class="line">                <span class="keyword">if</span> (mSettingsStore.isAirplaneModeOn()) &#123;</div><div class="line">                    mWifiStateMachine.setHostApRunning(<span class="keyword">null</span>, <span class="keyword">false</span>);</div><div class="line">                    transitionTo(mApStaDisabledState);</div><div class="line">                &#125;   </div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> CMD_SET_AP: <span class="comment">// 关闭热点</span></div><div class="line">                <span class="keyword">if</span> (msg.arg1 == <span class="number">0</span>) &#123; <span class="comment">// 0 为 关闭</span></div><div class="line">                    mWifiStateMachine.setHostApRunning(<span class="keyword">null</span>, <span class="keyword">false</span>); <span class="comment">// 进入wifistatemachine状态机，执行关闭ap的流程</span></div><div class="line">                    transitionTo(mApStaDisabledState);</div><div class="line">                &#125;   </div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> CMD_WIFI_TOGGLED:</div><div class="line">                mWifiStateMachine.setHostApRunning(<span class="keyword">null</span>, <span class="keyword">false</span>);</div><div class="line">                transitionTo(mApStaDisabledState);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">default</span>:</div><div class="line">                <span class="keyword">return</span> NOT_HANDLED;</div><div class="line">        &#125;   </div><div class="line">        <span class="keyword">return</span> HANDLED;</div><div class="line">    &#125;   </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setHostApRunning</span><span class="params">(WifiConfiguration wifiConfig, <span class="keyword">boolean</span> enable)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (enable) &#123;</div><div class="line">        sendMessage(CMD_START_AP, wifiConfig);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;    </div><div class="line">        sendMessage(CMD_STOP_AP);</div><div class="line">    &#125;               </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>执行mWifiStateMachine.setHostApRunning(null, false); false为关闭，此代码会向wifistatemachine发送消息 CMD_STOP_AP，同样，wifistatemachine的状态机原先是在mSoftApStartedState<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">SoftApStartedState</span> <span class="keyword">extends</span> <span class="title">State</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">processMessage</span><span class="params">(Message message)</span> </span>&#123;</div><div class="line">        logStateAndMessage(message, getClass().getSimpleName());</div><div class="line"></div><div class="line">        <span class="keyword">switch</span>(message.what) &#123;</div><div class="line">            <span class="keyword">case</span> CMD_STOP_AP: <span class="comment">// 关闭热点</span></div><div class="line">                <span class="keyword">if</span> (DBG) log(<span class="string">"Stopping Soft AP"</span>);</div><div class="line">                <span class="comment">/* We have not tethered at this point, so we just shutdown soft Ap */</span></div><div class="line">                <span class="keyword">try</span> &#123; </div><div class="line">                    mNwService.stopAccessPoint(mInterfaceName); <span class="comment">// 通过 networkmanagementservice 发送命令</span></div><div class="line">                &#125; <span class="keyword">catch</span>(Exception e) &#123;</div><div class="line">                    loge(<span class="string">"Exception in stopAccessPoint()"</span>);</div><div class="line">                &#125;</div><div class="line">                setWifiApState(WIFI_AP_STATE_DISABLED); <span class="comment">//发送广播 WIFI_AP_STATE_DISABLED</span></div><div class="line">                transitionTo(mInitialState); <span class="comment">// 恢复初始状态 mInitialState</span></div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> CMD_START_AP:</div><div class="line">                <span class="comment">// Ignore a start on a running access point</span></div><div class="line">                <span class="keyword">break</span>;</div><div class="line">                <span class="comment">// Fail client mode operation when soft AP is enabled</span></div><div class="line">            <span class="keyword">case</span> CMD_START_SUPPLICANT:</div><div class="line">                loge(<span class="string">"Cannot start supplicant with a running soft AP"</span>);</div><div class="line">                setWifiState(WIFI_STATE_UNKNOWN);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> CMD_TETHER_STATE_CHANGE:</div><div class="line">                TetherStateChange stateChange = (TetherStateChange) message.obj;</div><div class="line">                <span class="keyword">if</span> (startTethering(stateChange.available)) &#123;</div><div class="line">                    transitionTo(mTetheringState);</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">default</span>:</div><div class="line">                <span class="keyword">return</span> NOT_HANDLED;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> HANDLED;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>执行 mNwService.stopAccessPoint(mInterfaceName); 进入 NetworkManagementService<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stopAccessPoint</span><span class="params">(String wlanIface)</span> </span>&#123;</div><div class="line">    mContext.enforceCallingOrSelfPermission(CONNECTIVITY_INTERNAL, TAG);</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">        mConnector.execute(<span class="string">"softap"</span>, <span class="string">"stopap"</span>); <span class="comment">// 发送到commandlistener</span></div><div class="line">        wifiFirmwareReload(wlanIface, <span class="string">"STA"</span>); <span class="comment">// mConnector.execute("softap", "fwreload", wlanIface, mode);</span></div><div class="line">    &#125; <span class="keyword">catch</span> (NativeDaemonConnectorException e) &#123; </div><div class="line">        <span class="keyword">throw</span> e.rethrowAsParcelableException();</div><div class="line">    &#125;    </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我们先来看一下mConnector.execute(“softap”, “stopap”);<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> CommandListener::SoftapCmd::runCommand(SocketClient *cli,<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</div><div class="line">&#123;</div><div class="line">    rc = sSoftapCtrl-&gt;stopSoftap();</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">int</span> SoftapController::stopSoftap() </div><div class="line">&#123; </div><div class="line">    <span class="keyword">if</span> (mPid == <span class="number">0</span>) &#123;</div><div class="line">        ALOGE(<span class="string">"SoftAP is not running"</span>);</div><div class="line">        <span class="keyword">return</span> ResponseCode::SoftapStatusResult;</div><div class="line">    &#125;   </div><div class="line">    ALOGD(<span class="string">"Stopping the SoftAP service..."</span>);</div><div class="line">    kill(mPid, SIGTERM); <span class="comment">// 杀死softap的进程</span></div><div class="line">    waitpid(mPid, <span class="literal">NULL</span>, <span class="number">0</span>);</div><div class="line">    mPid = <span class="number">0</span>;</div><div class="line">    ALOGD(<span class="string">"SoftAP stopped successfully"</span>);</div><div class="line">    usleep(AP_BSS_STOP_DELAY);</div><div class="line">    <span class="keyword">return</span> ResponseCode::SoftapStatusResult;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>首先杀死 执行hostapd 建立的进程，下面 执行上面的 wifiFirmwareReload(wlanIface, “STA”) 来将固件重载到STA模式（打开AP时将之重载为了AP，现还原）</p>
+<p>此时，softap即关闭</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android-softap/" rel="tag"># Android softap</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/16/linux-directory-authority/" rel="next" title="Linux 目录的权限剖析">
+                <i class="fa fa-chevron-left"></i> Linux 目录的权限剖析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Shi jie" />
+          <p class="site-author-name" itemprop="name">Shi jie</p>
+           
+              <p class="site-description motion-element" itemprop="description">这是一个有趣的程序员的博客</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#回顾打开流程"><span class="nav-number">1.</span> <span class="nav-text">回顾打开流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关闭流程代码解析"><span class="nav-number">2.</span> <span class="nav-text">关闭流程代码解析</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shi jie</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

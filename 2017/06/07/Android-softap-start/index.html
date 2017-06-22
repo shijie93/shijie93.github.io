@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="510 原生AP启动和关闭流程解析 一. 原生AP打开流程 当我们在Setting菜单中打卡原生AP的开关后，会执行如下代码1234567891011121314//Android/packages/apps/Settings/src/com/android/settings/TetherSettings.javapublic boolean onPreferenceChange(Preferen">
+<meta name="description" content="510 原生AP启动流程解析 一. 原生AP打开流程 当我们在Setting菜单中打卡原生AP的开关后，会执行如下代码1234567891011121314//Android/packages/apps/Settings/src/com/android/settings/TetherSettings.javapublic boolean onPreferenceChange(Preference">
 <meta name="keywords" content="Android softap">
 <meta property="og:type" content="article">
-<meta property="og:title" content="510 原生AP启动和关闭流程解析">
+<meta property="og:title" content="510 原生AP启动流程解析">
 <meta property="og:url" content="http://yoursite.com/2017/06/07/Android-softap-start/index.html">
 <meta property="og:site_name" content="热爱，热情，乐此不疲">
-<meta property="og:description" content="510 原生AP启动和关闭流程解析 一. 原生AP打开流程 当我们在Setting菜单中打卡原生AP的开关后，会执行如下代码1234567891011121314//Android/packages/apps/Settings/src/com/android/settings/TetherSettings.javapublic boolean onPreferenceChange(Preferen">
-<meta property="og:updated_time" content="2017-06-13T08:33:01.326Z">
+<meta property="og:description" content="510 原生AP启动流程解析 一. 原生AP打开流程 当我们在Setting菜单中打卡原生AP的开关后，会执行如下代码1234567891011121314//Android/packages/apps/Settings/src/com/android/settings/TetherSettings.javapublic boolean onPreferenceChange(Preference">
+<meta property="og:updated_time" content="2017-06-20T09:07:22.570Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="510 原生AP启动和关闭流程解析">
-<meta name="twitter:description" content="510 原生AP启动和关闭流程解析 一. 原生AP打开流程 当我们在Setting菜单中打卡原生AP的开关后，会执行如下代码1234567891011121314//Android/packages/apps/Settings/src/com/android/settings/TetherSettings.javapublic boolean onPreferenceChange(Preferen">
+<meta name="twitter:title" content="510 原生AP启动流程解析">
+<meta name="twitter:description" content="510 原生AP启动流程解析 一. 原生AP打开流程 当我们在Setting菜单中打卡原生AP的开关后，会执行如下代码1234567891011121314//Android/packages/apps/Settings/src/com/android/settings/TetherSettings.javapublic boolean onPreferenceChange(Preference">
 
 
 
@@ -137,7 +137,7 @@
 
 
 
-  <title>510 原生AP启动和关闭流程解析 | 热爱，热情，乐此不疲</title>
+  <title>510 原生AP启动流程解析 | 热爱，热情，乐此不疲</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -274,7 +274,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">510 原生AP启动和关闭流程解析</h1>
+          <h1 class="post-title" itemprop="name headline">510 原生AP启动流程解析</h1>
         
 
         <div class="post-meta">
@@ -321,7 +321,7 @@
       
 
       
-        <h1 id="510-原生AP启动和关闭流程解析"><a href="#510-原生AP启动和关闭流程解析" class="headerlink" title="510 原生AP启动和关闭流程解析"></a>510 原生AP启动和关闭流程解析</h1><hr>
+        <h1 id="510-原生AP启动流程解析"><a href="#510-原生AP启动流程解析" class="headerlink" title="510 原生AP启动流程解析"></a>510 原生AP启动流程解析</h1><hr>
 <h2 id="一-原生AP打开流程"><a href="#一-原生AP打开流程" class="headerlink" title="一. 原生AP打开流程"></a>一. 原生AP打开流程</h2><ul>
 <li>当我们在Setting菜单中打卡原生AP的开关后，会执行如下代码<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Android/packages/apps/Settings/src/com/android/settings/TetherSettings.java</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onPreferenceChange</span><span class="params">(Preference preference, Object value)</span> </span>&#123;</div><div class="line">    <span class="keyword">boolean</span> enable = (Boolean) value;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (enable) &#123; <span class="comment">//想要打开</span></div><div class="line">        startProvisioningIfNecessary(WIFI_TETHERING); <span class="comment">//WIFI_TETHERING 通过wifi进行热点的分享</span></div><div class="line">    &#125; <span class="keyword">else</span> &#123; <span class="comment">//想要关闭</span></div><div class="line">        <span class="keyword">if</span> (isProvisioningNeeded(mProvisionApp)) &#123; </div><div class="line">            TetherService.cancelRecheckAlarmIfNecessary(getActivity(), WIFI_TETHERING);</div><div class="line">        &#125;   </div><div class="line">        mWifiApEnabler.setSoftapEnabled(<span class="keyword">false</span>);</div><div class="line">    &#125;   </div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
@@ -487,7 +487,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -535,7 +535,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#510-原生AP启动和关闭流程解析"><span class="nav-number">1.</span> <span class="nav-text">510 原生AP启动和关闭流程解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-原生AP打开流程"><span class="nav-number">1.1.</span> <span class="nav-text">一. 原生AP打开流程</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#510-原生AP启动流程解析"><span class="nav-number">1.</span> <span class="nav-text">510 原生AP启动流程解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-原生AP打开流程"><span class="nav-number">1.1.</span> <span class="nav-text">一. 原生AP打开流程</span></a></li></ol></li></ol></div>
             
 
           </div>
