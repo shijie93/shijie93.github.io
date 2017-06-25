@@ -100,7 +100,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/06/25/regex-3/index.html">
 <meta property="og:site_name" content="热爱，热情，乐此不疲">
 <meta property="og:description" content="回顾上一篇一个神奇高效的工具-正则表达式（二） 元字符前面两节，我们学习已经多次提到了元字符（”.”,”[]”,”\”等），在正则表达式的语法中，元字符的种类和用途可谓是多种多样，纷繁复杂，有效的搭配元字符使用，能够使得模式更加的简单和高效。 代表本身-转义如果我们想要在模式中匹配元字符本身，需要在对应的元字符前增加“\”，例如 a[1]=1 b[2]=2 想要匹配如上的数组： 模式：[ab]\[">
-<meta property="og:updated_time" content="2017-06-25T12:42:55.249Z">
+<meta property="og:updated_time" content="2017-06-25T12:47:00.272Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一个神奇高效的工具-正则表达式（三）">
 <meta name="twitter:description" content="回顾上一篇一个神奇高效的工具-正则表达式（二） 元字符前面两节，我们学习已经多次提到了元字符（”.”,”[]”,”\”等），在正则表达式的语法中，元字符的种类和用途可谓是多种多样，纷繁复杂，有效的搭配元字符使用，能够使得模式更加的简单和高效。 代表本身-转义如果我们想要在模式中匹配元字符本身，需要在对应的元字符前增加“\”，例如 a[1]=1 b[2]=2 想要匹配如上的数组： 模式：[ab]\[">
@@ -421,7 +421,41 @@ b[2]=2
 <p>在window系统中，\r\n是一行的结尾标签，但是在Unix和linux内，只使用\n来结束当前行，所以，此例在Unix下，可以替换成\n\n。后面介绍替换的时候，我们可以通过这类的匹配来做一些类似删除空白行，删除无用信息行的操作，这很实用</p>
 </blockquote>
 <h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>像 “[“,”.”等字符，加上反斜杠，代表的是字符本身，而像n,f,t等，加上反斜杠，却能够代表特殊的含义.这些需要我们注意使用，不要混淆</p>
-<h3 id="特定字符集合"><a href="#特定字符集合" class="headerlink" title="特定字符集合"></a>特定字符集合</h3><p>上一节我们提到过，如果要表示一堆数字的集合，可以用[0-9]来表示,其实还有一种形式来表示这一些集合，下面直接给出一些：<br>| 模式 | 说明   |<br>| ——–   | —–:  |<br>| \d        |    0-9   |<br>| \D        |    非0-9   |<br>| \w        |    任何的字母    |<br>| \W        |    非任何字母   |<br>| \s        |       任何一个“看不见”的字符    |<br>| \S        |          非任何一个“看不见”的字符    |</p>
+<h3 id="特定字符集合"><a href="#特定字符集合" class="headerlink" title="特定字符集合"></a>特定字符集合</h3><p>上一节我们提到过，如果要表示一堆数字的集合，可以用[0-9]来表示,其实还有一种形式来表示这一些集合，下面直接给出一些：</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th style="text-align:right">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\d</td>
+<td style="text-align:right">0-9</td>
+</tr>
+<tr>
+<td>\D</td>
+<td style="text-align:right">非0-9</td>
+</tr>
+<tr>
+<td>\w</td>
+<td style="text-align:right">任何的字母</td>
+</tr>
+<tr>
+<td>\W</td>
+<td style="text-align:right">非任何字母</td>
+</tr>
+<tr>
+<td>\s</td>
+<td style="text-align:right">任何一个“看不见”的字符</td>
+</tr>
+<tr>
+<td>\S</td>
+<td style="text-align:right">非任何一个“看不见”的字符</td>
+</tr>
+</tbody>
+</table>
 <blockquote>
 <p>\s 即表示 \f,\t,\n 等之前提到的那些空白字符</p>
 <p>我们已经遇到很多同一种问题可以用多种方法来解决的例子了，是不是越简单越好呢，有时候，越复杂，或许越经得住“考验”，如果我们要构建一个更完善，更兼容的模式，也许我们需要花时间，将他设计的更复杂一些吧。</p>
