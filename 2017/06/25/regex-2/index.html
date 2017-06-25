@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="什么是正则表达式正则表达式是用来匹配和处理文本的字符串，是用正则表达式语言创建的。一般使用正则表达式的场景无外乎两个：  查找特定的信息（搜索） 查找并编辑特定的信息（替换）   即搜索和替换  正则表达式并不是一种完备的语言，他是内置在其他语言中的“迷你”的语言，我们可以把它看作是一个工具，一个神奇并且高效的工具。 如何学习正则表达式我们说正则表达式是一门“语言”，那么一门语言就一定有属于它的“">
+<meta name="description" content="回顾上一篇一个神奇高效的工具-正则表达式（一） 多个字符的匹配上一节，我们介绍了如何匹配纯文本和任意字符。但是绝大多数情况，我们匹配的模式是既不是固定的某一个字符或者字符串，也不是说任意字符都可以，通常我们会去匹配我们指定范围的字符集合，本节会着重地介绍字符集合的匹配模式。 多选一指定多选一先看一下如下的场景： aa ba cc dd 找出所有的以a为结尾的字符 模式：.a 此时，如果在待匹配中增">
 <meta name="keywords" content="regex">
 <meta property="og:type" content="article">
-<meta property="og:title" content="一个神奇高效的工具-正则表达式（一）">
-<meta property="og:url" content="http://yoursite.com/2017/06/25/regex-1/index.html">
+<meta property="og:title" content="一个神奇高效的工具-正则表达式（二）">
+<meta property="og:url" content="http://yoursite.com/2017/06/25/regex-2/index.html">
 <meta property="og:site_name" content="热爱，热情，乐此不疲">
-<meta property="og:description" content="什么是正则表达式正则表达式是用来匹配和处理文本的字符串，是用正则表达式语言创建的。一般使用正则表达式的场景无外乎两个：  查找特定的信息（搜索） 查找并编辑特定的信息（替换）   即搜索和替换  正则表达式并不是一种完备的语言，他是内置在其他语言中的“迷你”的语言，我们可以把它看作是一个工具，一个神奇并且高效的工具。 如何学习正则表达式我们说正则表达式是一门“语言”，那么一门语言就一定有属于它的“">
-<meta property="og:updated_time" content="2017-06-25T03:49:34.751Z">
+<meta property="og:description" content="回顾上一篇一个神奇高效的工具-正则表达式（一） 多个字符的匹配上一节，我们介绍了如何匹配纯文本和任意字符。但是绝大多数情况，我们匹配的模式是既不是固定的某一个字符或者字符串，也不是说任意字符都可以，通常我们会去匹配我们指定范围的字符集合，本节会着重地介绍字符集合的匹配模式。 多选一指定多选一先看一下如下的场景： aa ba cc dd 找出所有的以a为结尾的字符 模式：.a 此时，如果在待匹配中增">
+<meta property="og:updated_time" content="2017-06-25T06:42:26.484Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一个神奇高效的工具-正则表达式（一）">
-<meta name="twitter:description" content="什么是正则表达式正则表达式是用来匹配和处理文本的字符串，是用正则表达式语言创建的。一般使用正则表达式的场景无外乎两个：  查找特定的信息（搜索） 查找并编辑特定的信息（替换）   即搜索和替换  正则表达式并不是一种完备的语言，他是内置在其他语言中的“迷你”的语言，我们可以把它看作是一个工具，一个神奇并且高效的工具。 如何学习正则表达式我们说正则表达式是一门“语言”，那么一门语言就一定有属于它的“">
+<meta name="twitter:title" content="一个神奇高效的工具-正则表达式（二）">
+<meta name="twitter:description" content="回顾上一篇一个神奇高效的工具-正则表达式（一） 多个字符的匹配上一节，我们介绍了如何匹配纯文本和任意字符。但是绝大多数情况，我们匹配的模式是既不是固定的某一个字符或者字符串，也不是说任意字符都可以，通常我们会去匹配我们指定范围的字符集合，本节会着重地介绍字符集合的匹配模式。 多选一指定多选一先看一下如下的场景： aa ba cc dd 找出所有的以a为结尾的字符 模式：.a 此时，如果在待匹配中增">
 
 
 
@@ -131,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/06/25/regex-1/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/06/25/regex-2/"/>
 
 
 
 
 
-  <title>一个神奇高效的工具-正则表达式（一） | 热爱，热情，乐此不疲</title>
+  <title>一个神奇高效的工具-正则表达式（二） | 热爱，热情，乐此不疲</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -277,7 +277,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/25/regex-1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/25/regex-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shi jie">
@@ -294,7 +294,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">一个神奇高效的工具-正则表达式（一）</h1>
+          <h1 class="post-title" itemprop="name headline">一个神奇高效的工具-正则表达式（二）</h1>
         
 
         <div class="post-meta">
@@ -306,7 +306,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-25T10:55:09+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-25T13:49:15+08:00">
                 2017-06-25
               </time>
             
@@ -363,42 +363,60 @@
       
 
       
-        <h2 id="什么是正则表达式"><a href="#什么是正则表达式" class="headerlink" title="什么是正则表达式"></a>什么是正则表达式</h2><p>正则表达式是用来匹配和处理文本的字符串，是用正则表达式语言创建的。一般使用正则表达式的场景无外乎两个：</p>
-<ul>
-<li>查找特定的信息（搜索）</li>
-<li>查找并编辑特定的信息（替换）</li>
-</ul>
-<blockquote>
-<p>即搜索和替换</p>
+        <h2 id="回顾上一篇"><a href="#回顾上一篇" class="headerlink" title="回顾上一篇"></a>回顾上一篇</h2><p><a href="https://shijie93.github.io/2017/06/25/regex-1/" target="_blank" rel="external">一个神奇高效的工具-正则表达式（一）</a></p>
+<h2 id="多个字符的匹配"><a href="#多个字符的匹配" class="headerlink" title="多个字符的匹配"></a>多个字符的匹配</h2><p>上一节，我们介绍了如何匹配纯文本和任意字符。但是绝大多数情况，我们匹配的模式是既不是固定的某一个字符或者字符串，也不是说任意字符都可以，通常我们会去匹配我们指定范围的字符集合，本节会着重地介绍字符集合的匹配模式。</p>
+<h3 id="多选一"><a href="#多选一" class="headerlink" title="多选一"></a>多选一</h3><h4 id="指定多选一"><a href="#指定多选一" class="headerlink" title="指定多选一"></a>指定多选一</h4><p>先看一下如下的场景：</p>
+<pre><code>aa
+ba
+cc
+dd
+</code></pre><p>找出所有的以a为结尾的字符</p>
+<pre><code>模式：.a
+</code></pre><p>此时，如果在待匹配中增加一个ea，但是你此时仍然只想找出aa和ba，使用任意字符就不合适了，这里介绍元字符的成员</p>
+<pre><code>模式：[ab]a
+</code></pre><blockquote>
+<p>元字符’[‘ 和 ‘]’，在使用’[‘ 和 ‘]’定义的字符集合里，匹配的结果会任意选择其中一个作为匹配的文本。</p>
+<p>[ab]a并不是最完善的匹配，如果我们增加一个bac，那么也会被匹配。有时候，验证某个模式能不能得到预期的匹配并不难，但是验证它能不能匹配到你不想要的东西就比较困难了。</p>
 </blockquote>
-<p>正则表达式并不是一种完备的语言，他是内置在其他语言中的“迷你”的语言，我们可以把它看作是一个工具，一个神奇并且高效的工具。</p>
-<h2 id="如何学习正则表达式"><a href="#如何学习正则表达式" class="headerlink" title="如何学习正则表达式"></a>如何学习正则表达式</h2><p>我们说正则表达式是一门“语言”，那么一门语言就一定有属于它的“语法”。学习正则表达式，需要学习它的语法，这是基础和根本，但是正则表达式真正的难度在于如何在合适的场景用所学的语法（合适的语法，因为学习了正则表达式之后，很多问题会有很多种方法去解决，有的兼容性好，有的简单，有的比较快达成，那么问题如何去寻找最合适的方法，往往是需要很多的实践和尝试的）。学以致用，实践是检验真理的唯一标准，所以，大家在日常的编程工作中，一定要去敢于使用正则表达式，不断的锻炼自己，正如某位前辈曾经说的:</p>
-<blockquote>
-<p>当一个问题，你决定使用正则表达式来解决的时候，很好，那么你现在面临的是两个问题了</p>
+<p>再举一个类似的例子</p>
+<pre><code>Apple is a fruit, my dad likes apple.
+</code></pre><p>找出所有的苹果的单词</p>
+<pre><code>模式：[Aa]pple
+</code></pre><p>这样，大写小写开头的苹果单词都会被匹配</p>
+<h4 id="区间多选一"><a href="#区间多选一" class="headerlink" title="区间多选一"></a>区间多选一</h4><p>上面说到的指定集合多选一，存在一个问题，就是集合过多的时候，逐个枚举会显得很笨重，这样也就失去了正则表达式的初衷。接下来我们介绍一种利用区间来指定集合的模式<br>看下面这个例子：</p>
+<pre><code>1.c
+2.c
+3.c
+4.c
+5.c
+8.c
+9.c
+a.c
+b.c
+</code></pre><p>匹配所有以数字为文件名的c文件</p>
+<pre><code>模式：[0123456789]\.c
+</code></pre><p>汗，笨重的写法总是让人很反感，类似数字集合，大写字母集合，小写字母集合，都是很常见的匹配模式，当然有更简单的写法</p>
+<pre><code>模式：[0-9] [A-Z] [a-z] [A-H]
+</code></pre><blockquote>
+<p>模式[0-9] 完全等价于 [0123456789] ，其他类推，当然也可以组合使用[0-9A-Za-z]代表所有的数字和字母集合，很明显的 ‘-‘也是元字符，但是中能在’[‘ 和 ‘]’之间进行使用</p>
 </blockquote>
-<h2 id="匹配"><a href="#匹配" class="headerlink" title="匹配"></a>匹配</h2><p>无论是查找还是替换，最先要做到也是最基本的，就是匹配你想要处理的内容，匹配全了，我们的查找才能全面，替换才能准确，匹配不到所有的内容或者匹配的内容不仅仅包括你的目标，那么都会成为一个错误的使用。</p>
-<h3 id="纯文本匹配"><a href="#纯文本匹配" class="headerlink" title="纯文本匹配"></a>纯文本匹配</h3><p>日常我们在使用编辑器时，最常用的就是使用纯文本进行匹配：</p>
-<pre><code>welcome to guangzhou
-</code></pre><p>如果想要找到所有的guangzhou，那么只需要使用“guangzhou”进行匹配即可<br>那么如果你在输入匹配内容的时候，并不知道文章中的guang zhou是否存在大写字母，如果你是入了”GuangZhou”,上面的内容还能匹配到吗？答案是否，正则表达式是对大小写敏感的“语言”（某些环境下，可以使用例如i的选项来ignore大小写），但是正则表达式的很多技巧，都可以完美的解决这个问题，这个我们在接下来的内容中，会详细的进行介绍</p>
-<h3 id="任意字符的匹配"><a href="#任意字符的匹配" class="headerlink" title="任意字符的匹配"></a>任意字符的匹配</h3><p>正则表达式的神奇，绝对不是体现在纯文本的匹配呀！下面我们来介绍他的七十二般变化之一-如何体现任意字符的匹配。</p>
-<pre><code>I am in class-1
-Li ming is in class-4
-My brother is in class-7
-</code></pre><p>我们如何在以上文本中，找出所有的班级的集合呢？正则表达式中有一个符号，可以匹配任意的字符：</p>
-<blockquote>
-<p>符号 .</p>
+<h3 id="取非匹配"><a href="#取非匹配" class="headerlink" title="取非匹配"></a>取非匹配</h3><p>匹配可以指定我需要什么，当然也可以指定我不需要什么了，这时往往需要取非匹配模式。举个例子：</p>
+<pre><code>0B
+1k
+2M
+3G
+4T
+</code></pre><p>匹配除了M级别的内容大小</p>
+<pre><code>模式：.[BMGT]
+</code></pre><blockquote>
+<p>正如前面所说，正则表达式往往有很多种方法来获得你想要的结果</p>
 </blockquote>
-<p>所以我们只需要输入匹配文本：</p>
-<pre><code>模式：class-.
-</code></pre><p>就可以成功的匹配到文本中的所有班级信息（有心的同学，应该注意到，如果班级不止一位数，这个匹配的样式还可行吗？可以思考一下）</p>
-<h3 id="如何匹配"><a href="#如何匹配" class="headerlink" title="如何匹配."></a>如何匹配.</h3><p>接着上面的内容，我们领略到了”.”的强大，那么，如果我们的待匹配文本中，我们需要匹配它本身,应该怎么做呢？我们应该告诉处理器，我们要找它本人</p>
-<pre><code>2.4 
-214
-</code></pre><p>如果我们要匹配数字2.4，你需要在.前面增加一个\（反斜杠,\是一个元字符,表示它后面的字符有特殊的含义，不是他本身的含义（本身含义即为匹配任意字符））</p>
-<pre><code>模式：2\.4
-</code></pre><p>哈哈，有时候”\”也身不由己，需要匹配他自身的时候：</p>
-<pre><code>模式：\\
-</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>模式（正则表达式简称）可以由纯文本或者一些元字符组成，元字符前增加\，可以匹配它本身</p>
+<p>我们也可以用元字符’^’来表示取非，即我不要匹配某个字符，如下：</p>
+<pre><code>模式：.[^M]
+</code></pre><blockquote>
+<p>^常常存在于集合中，而且取非的内容是整个集合,例如：[^a-z]为不匹配所有小写字母</p>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本节我们介绍了多对一的匹配以及取非模式,元字符’[‘’]’’-‘’^’,下一节，我们会着重介绍使用元字符的模式</p>
 
       
     </div>
@@ -441,8 +459,8 @@ My brother is in class-7
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/22/input-method-latin/" rel="next" title="Android 重启后恢复Latin输入法的问题">
-                <i class="fa fa-chevron-left"></i> Android 重启后恢复Latin输入法的问题
+              <a href="/2017/06/25/regex-1/" rel="next" title="一个神奇高效的工具-正则表达式（一）">
+                <i class="fa fa-chevron-left"></i> 一个神奇高效的工具-正则表达式（一）
               </a>
             
           </div>
@@ -450,10 +468,6 @@ My brother is in class-7
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/25/regex-2/" rel="prev" title="一个神奇高效的工具-正则表达式（二）">
-                一个神奇高效的工具-正则表达式（二） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -582,7 +596,7 @@ My brother is in class-7
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是正则表达式"><span class="nav-number">1.</span> <span class="nav-text">什么是正则表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何学习正则表达式"><span class="nav-number">2.</span> <span class="nav-text">如何学习正则表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匹配"><span class="nav-number">3.</span> <span class="nav-text">匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#纯文本匹配"><span class="nav-number">3.1.</span> <span class="nav-text">纯文本匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#任意字符的匹配"><span class="nav-number">3.2.</span> <span class="nav-text">任意字符的匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何匹配"><span class="nav-number">3.3.</span> <span class="nav-text">如何匹配.</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#回顾上一篇"><span class="nav-number">1.</span> <span class="nav-text">回顾上一篇</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多个字符的匹配"><span class="nav-number">2.</span> <span class="nav-text">多个字符的匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#多选一"><span class="nav-number">2.1.</span> <span class="nav-text">多选一</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#指定多选一"><span class="nav-number">2.1.1.</span> <span class="nav-text">指定多选一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#区间多选一"><span class="nav-number">2.1.2.</span> <span class="nav-text">区间多选一</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#取非匹配"><span class="nav-number">2.2.</span> <span class="nav-text">取非匹配</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
