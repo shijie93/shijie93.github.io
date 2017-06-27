@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="什么是正则表达式正则表达式是用来匹配和处理文本的字符串，是用正则表达式语言创建的。一般使用正则表达式的场景无外乎两个：  查找特定的信息（搜索） 查找并编辑特定的信息（替换）   即搜索和替换  正则表达式并不是一种完备的语言，他是内置在其他语言中的“迷你”的语言，我们可以把它看作是一个工具，一个神奇并且高效的工具。 如何学习正则表达式我们说正则表达式是一门“语言”，那么一门语言就一定有属于它的“">
+<meta name="description" content="回顾上一篇一个神奇高效的工具-正则表达式（三） 重复匹配上一节，我们介绍了元字符的一些使用和事例，包括之前介绍的匹配纯文本等，都是单次匹配-每种模式只匹配一个字符。本节将要介绍如何使我们的模式能够匹配能够“重复利用”，事半功倍。下面我们来思考一个场景： www.baidu.com 如果我们要匹配以上格式的网址（AAA.BBB.CCC）,运用之前学到的知识，我们应该如何做到呢？ 模式：\w\w\w\">
 <meta name="keywords" content="regex">
 <meta property="og:type" content="article">
-<meta property="og:title" content="一个神奇高效的工具-正则表达式（一）">
-<meta property="og:url" content="http://yoursite.com/2017/06/25/regex-1/index.html">
+<meta property="og:title" content="一个神奇高效的工具-正则表达式（四）">
+<meta property="og:url" content="http://yoursite.com/2017/06/26/regex-4/index.html">
 <meta property="og:site_name" content="热爱，热情，乐此不疲">
-<meta property="og:description" content="什么是正则表达式正则表达式是用来匹配和处理文本的字符串，是用正则表达式语言创建的。一般使用正则表达式的场景无外乎两个：  查找特定的信息（搜索） 查找并编辑特定的信息（替换）   即搜索和替换  正则表达式并不是一种完备的语言，他是内置在其他语言中的“迷你”的语言，我们可以把它看作是一个工具，一个神奇并且高效的工具。 如何学习正则表达式我们说正则表达式是一门“语言”，那么一门语言就一定有属于它的“">
-<meta property="og:updated_time" content="2017-06-25T03:49:34.751Z">
+<meta property="og:description" content="回顾上一篇一个神奇高效的工具-正则表达式（三） 重复匹配上一节，我们介绍了元字符的一些使用和事例，包括之前介绍的匹配纯文本等，都是单次匹配-每种模式只匹配一个字符。本节将要介绍如何使我们的模式能够匹配能够“重复利用”，事半功倍。下面我们来思考一个场景： www.baidu.com 如果我们要匹配以上格式的网址（AAA.BBB.CCC）,运用之前学到的知识，我们应该如何做到呢？ 模式：\w\w\w\">
+<meta property="og:updated_time" content="2017-06-27T07:20:19.140Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一个神奇高效的工具-正则表达式（一）">
-<meta name="twitter:description" content="什么是正则表达式正则表达式是用来匹配和处理文本的字符串，是用正则表达式语言创建的。一般使用正则表达式的场景无外乎两个：  查找特定的信息（搜索） 查找并编辑特定的信息（替换）   即搜索和替换  正则表达式并不是一种完备的语言，他是内置在其他语言中的“迷你”的语言，我们可以把它看作是一个工具，一个神奇并且高效的工具。 如何学习正则表达式我们说正则表达式是一门“语言”，那么一门语言就一定有属于它的“">
+<meta name="twitter:title" content="一个神奇高效的工具-正则表达式（四）">
+<meta name="twitter:description" content="回顾上一篇一个神奇高效的工具-正则表达式（三） 重复匹配上一节，我们介绍了元字符的一些使用和事例，包括之前介绍的匹配纯文本等，都是单次匹配-每种模式只匹配一个字符。本节将要介绍如何使我们的模式能够匹配能够“重复利用”，事半功倍。下面我们来思考一个场景： www.baidu.com 如果我们要匹配以上格式的网址（AAA.BBB.CCC）,运用之前学到的知识，我们应该如何做到呢？ 模式：\w\w\w\">
 
 
 
@@ -131,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/06/25/regex-1/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/06/26/regex-4/"/>
 
 
 
 
 
-  <title>一个神奇高效的工具-正则表达式（一） | 热爱，热情，乐此不疲</title>
+  <title>一个神奇高效的工具-正则表达式（四） | 热爱，热情，乐此不疲</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -277,7 +277,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/25/regex-1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/26/regex-4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shi jie">
@@ -294,7 +294,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">一个神奇高效的工具-正则表达式（一）</h1>
+          <h1 class="post-title" itemprop="name headline">一个神奇高效的工具-正则表达式（四）</h1>
         
 
         <div class="post-meta">
@@ -306,8 +306,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-25T10:55:09+08:00">
-                2017-06-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-26T20:12:46+08:00">
+                2017-06-26
               </time>
             
 
@@ -363,42 +363,86 @@
       
 
       
-        <h2 id="什么是正则表达式"><a href="#什么是正则表达式" class="headerlink" title="什么是正则表达式"></a>什么是正则表达式</h2><p>正则表达式是用来匹配和处理文本的字符串，是用正则表达式语言创建的。一般使用正则表达式的场景无外乎两个：</p>
-<ul>
-<li>查找特定的信息（搜索）</li>
-<li>查找并编辑特定的信息（替换）</li>
-</ul>
-<blockquote>
-<p>即搜索和替换</p>
+        <h2 id="回顾上一篇"><a href="#回顾上一篇" class="headerlink" title="回顾上一篇"></a>回顾上一篇</h2><p><a href="https://shijie93.github.io/2017/06/25/regex-3/" target="_blank" rel="external">一个神奇高效的工具-正则表达式（三）</a></p>
+<h2 id="重复匹配"><a href="#重复匹配" class="headerlink" title="重复匹配"></a>重复匹配</h2><p>上一节，我们介绍了元字符的一些使用和事例，包括之前介绍的匹配纯文本等，都是单次匹配-每种模式只匹配一个字符。本节将要介绍如何使我们的模式能够匹配能够“重复利用”，事半功倍。<br>下面我们来思考一个场景：</p>
+<pre><code>www.baidu.com
+</code></pre><p>如果我们要匹配以上格式的网址（AAA.BBB.CCC）,运用之前学到的知识，我们应该如何做到呢？</p>
+<pre><code>模式：\w\w\w\.\w\w\w\w\w\.\w\w\w
+</code></pre><blockquote>
+<p>很明显，这样不仅没有给我们带来便利，而且，这并不能代表上面所提到的网址格式。</p>
 </blockquote>
-<p>正则表达式并不是一种完备的语言，他是内置在其他语言中的“迷你”的语言，我们可以把它看作是一个工具，一个神奇并且高效的工具。</p>
-<h2 id="如何学习正则表达式"><a href="#如何学习正则表达式" class="headerlink" title="如何学习正则表达式"></a>如何学习正则表达式</h2><p>我们说正则表达式是一门“语言”，那么一门语言就一定有属于它的“语法”。学习正则表达式，需要学习它的语法，这是基础和根本，但是正则表达式真正的难度在于如何在合适的场景用所学的语法（合适的语法，因为学习了正则表达式之后，很多问题会有很多种方法去解决，有的兼容性好，有的简单，有的比较快达成，那么问题如何去寻找最合适的方法，往往是需要很多的实践和尝试的）。学以致用，实践是检验真理的唯一标准，所以，大家在日常的编程工作中，一定要去敢于使用正则表达式，不断的锻炼自己，正如某位前辈曾经说的:</p>
-<blockquote>
-<p>当一个问题，你决定使用正则表达式来解决的时候，很好，那么你现在面临的是两个问题了</p>
+<p>本节，我们将会处理类似，某种匹配重复出现的问题，我们对出现次数并不做太多的考究，更重要的是能够帮助我们完成匹配</p>
+<pre><code>www.baidu.com
+www.hao123.com
+www.wobiande.gov
+</code></pre><p>模式如下：</p>
+<pre><code>模式：\w+\.[\w\d]+\.\w+
+</code></pre><blockquote>
+<p>看完本节，你会立马理解上面这个模式的，我担保！</p>
 </blockquote>
-<h2 id="匹配"><a href="#匹配" class="headerlink" title="匹配"></a>匹配</h2><p>无论是查找还是替换，最先要做到也是最基本的，就是匹配你想要处理的内容，匹配全了，我们的查找才能全面，替换才能准确，匹配不到所有的内容或者匹配的内容不仅仅包括你的目标，那么都会成为一个错误的使用。</p>
-<h3 id="纯文本匹配"><a href="#纯文本匹配" class="headerlink" title="纯文本匹配"></a>纯文本匹配</h3><p>日常我们在使用编辑器时，最常用的就是使用纯文本进行匹配：</p>
-<pre><code>welcome to guangzhou
-</code></pre><p>如果想要找到所有的guangzhou，那么只需要使用“guangzhou”进行匹配即可<br>那么如果你在输入匹配内容的时候，并不知道文章中的guang zhou是否存在大写字母，如果你是入了”GuangZhou”,上面的内容还能匹配到吗？答案是否，正则表达式是对大小写敏感的“语言”（某些环境下，可以使用例如i的选项来ignore大小写），但是正则表达式的很多技巧，都可以完美的解决这个问题，这个我们在接下来的内容中，会详细的进行介绍</p>
-<h3 id="任意字符的匹配"><a href="#任意字符的匹配" class="headerlink" title="任意字符的匹配"></a>任意字符的匹配</h3><p>正则表达式的神奇，绝对不是体现在纯文本的匹配呀！下面我们来介绍他的七十二般变化之一-如何体现任意字符的匹配。</p>
-<pre><code>I am in class-1
-Li ming is in class-4
-My brother is in class-7
-</code></pre><p>我们如何在以上文本中，找出所有的班级的集合呢？正则表达式中有一个符号，可以匹配任意的字符：</p>
+<h3 id="至少匹配一次"><a href="#至少匹配一次" class="headerlink" title="至少匹配一次"></a>至少匹配一次</h3><p>上面的场景中我们知道，两个”.”前后的字符走不可少，不可能存在www..com的网址对吧，所以，我们给予它重复的次数一定是不少于一次的。我们使用的元字符是“+”</p>
 <blockquote>
-<p>符号 .</p>
+<p>“+” 匹配一个或者多个字符，最简单的一种使用就是“b+”，这代表匹配至少一个“b”，它也可以有一些复杂的使用方式，例如我们之前提到的[a-z],它代表a,b,c…z的任意一个字符，如果我们要表示由不少于一个的小写字符组成，我们要怎么表示呢？[a-z]+,记住不要把+写到[]里，这只能表示单个字符+（类似像”.”,”+”这样的元字符，在[]内可以不用转义而表达它原本的含义，但是增加转义让人看上去更清晰明了）</p>
+<p>细心的朋友可能发现了，[\w\d]+，“+”元字符也可以接在字符集合后，代表不止一次的集合内任意一个匹配</p>
 </blockquote>
-<p>所以我们只需要输入匹配文本：</p>
-<pre><code>模式：class-.
-</code></pre><p>就可以成功的匹配到文本中的所有班级信息（有心的同学，应该注意到，如果班级不止一位数，这个匹配的样式还可行吗？可以思考一下）</p>
-<h3 id="如何匹配"><a href="#如何匹配" class="headerlink" title="如何匹配."></a>如何匹配.</h3><p>接着上面的内容，我们领略到了”.”的强大，那么，如果我们的待匹配文本中，我们需要匹配它本身,应该怎么做呢？我们应该告诉处理器，我们要找它本人</p>
-<pre><code>2.4 
-214
-</code></pre><p>如果我们要匹配数字2.4，你需要在.前面增加一个\（反斜杠,\是一个元字符,表示它后面的字符有特殊的含义，不是他本身的含义（本身含义即为匹配任意字符））</p>
-<pre><code>模式：2\.4
-</code></pre><p>哈哈，有时候”\”也身不由己，需要匹配他自身的时候：</p>
-<pre><code>模式：\\
-</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>模式（正则表达式简称）可以由纯文本或者一些元字符组成，元字符前增加\，可以匹配它本身</p>
+<h3 id="匹配任意次数"><a href="#匹配任意次数" class="headerlink" title="匹配任意次数"></a>匹配任意次数</h3><p>“+”的使用场景是“起码得有一次”，下面介绍的是可以一次都没有，当然，它的范围是比”+”要大的，因为多了一个“零匹配”。那就是”*”</p>
+<blockquote>
+<p>“*”也是一个元字符，将它放在字符或者字符集合后面，就可以匹配该字符或者字符集合零次或者多次的情况</p>
+</blockquote>
+<p>来看另一个场景：</p>
+<pre><code>&lt;start&gt;123&lt;end&gt;
+&lt;start&gt;abc&lt;end&gt;
+&lt;start&gt;&lt;end&gt;
+</code></pre><p>需要匹配每一组start和end，模式如下</p>
+<pre><code>&lt;start&gt;.*&lt;end&gt;
+</code></pre><blockquote>
+<p>我们可以吧”*”理解成它之前的字符是可选的，但是”+”可以理解为它之前的字符是必选的，两者都是可以重复</p>
+</blockquote>
+<h3 id="0-or-1"><a href="#0-or-1" class="headerlink" title="0 or 1"></a>0 or 1</h3><p>我们已经介绍了至少匹配一次 和 “可有可无” 的情况，那么，如果我既想要可有可无，有的时候只匹配单词呢？</p>
+<blockquote>
+<p>“?”字符可以帮助我们达到这种效果</p>
+</blockquote>
+<p>x现在我们介绍了”*”、”+”和”?”,请大家仔细体会其中的区别</p>
+<p>看一下如下的场景：</p>
+<pre><code>http://www.hao123.com
+https://shijie93.github.io
+</code></pre><p>将这两个网址同事能够匹配</p>
+<pre><code>模式：https?://[\w.]+
+</code></pre><p>“s?”表示此处的s可有可无，而且有的时候，只会出现一次</p>
+<blockquote>
+<p>是否还记得上一节我们提到空白行的表示方法，在windows和linux的表现方式不同，我们可以通过”?”整合成同一种表现形式：[\r]?\n[\r]?\n</p>
+</blockquote>
+<h2 id="指定次数"><a href="#指定次数" class="headerlink" title="指定次数"></a>指定次数</h2><p>上面介绍的三个元字符+、*和？可以处理很多场景的问题，但是有一些情况下，他们有些力不从心，如何管控匹配的次数呢，这三个都不能很好的完成这个任务，看样子，我们又要解锁新的“技能了”。</p>
+<blockquote>
+<p>{，}可以帮助我们解决这个问题</p>
+</blockquote>
+<h3 id="指定某个次数"><a href="#指定某个次数" class="headerlink" title="指定某个次数"></a>指定某个次数</h3><pre><code>模式：[\w]{3} #匹配三次字母字符，加上中括号是为了增强可读性
+</code></pre><blockquote>
+<p>如上所示，代表前面的字符或者字符集合匹配固定的次数</p>
+</blockquote>
+<h3 id="指定匹配区间"><a href="#指定匹配区间" class="headerlink" title="指定匹配区间"></a>指定匹配区间</h3><pre><code>模式：[\w]{3,6} #匹配三次到六次字母字符，加上中括号是为了增强可读性
+</code></pre><blockquote>
+<p>如上所示，代表前面的字符或者字符集合匹配次数区间</p>
+</blockquote>
+<h3 id="设置匹配下限"><a href="#设置匹配下限" class="headerlink" title="设置匹配下限"></a>设置匹配下限</h3><pre><code>模式：[\w]{3,} #匹配三次以及三次以上字母字符，加上中括号是为了增强可读性
+</code></pre><blockquote>
+<p>如上所示，代表前面的字符或者字符集合匹配次数区间，右边界可视为无穷大</p>
+</blockquote>
+<h2 id="贪婪的元字符"><a href="#贪婪的元字符" class="headerlink" title="贪婪的元字符"></a>贪婪的元字符</h2><p>先看下面这个场景：</p>
+<pre><code>&lt;start&gt;abc&lt;end&gt; , &lt;start&gt;cba&lt;end&gt;
+</code></pre><p>我们需要匹配每一对start和end，下面是匹配的模式：</p>
+<pre><code>模式：&lt;start&gt;.*&lt;end&gt;
+</code></pre><p>请思考这是会如你所愿，匹配到想要的文本吗？</p>
+<blockquote>
+<p>“.*”匹配一切，并且，贪婪的匹配一切，知道最后一次出现了它后面的模式片段，往往，这不是我们所需要的。</p>
+</blockquote>
+<p>“+”,”*”都是贪婪型的元字符，他们并不会在第一次遇到后面的匹配时“停手”，而是不停的匹配知道最后一次的出现位置，就像一个吃货，不停的吃吃，知道吃饱吃不下为止。我们想要避免这种贪婪的情况，只需要在这些元字符后添加一个”?”就可以了。</p>
+<pre><code>模式：&lt;start&gt;.*?&lt;end&gt;
+</code></pre><p>你再用上面的模式尝试匹配一下，发现可以满足我们的要求</p>
+<blockquote>
+<p>上面提到过的设置匹配区间和匹配下限的情况，也可以在后面加一个元字符”?”，可以试试会发生什么 {3,6}?、{3,}?</p>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>介绍了这节，我们慢慢能够体会到正则表达式的神奇和高效了，别着急，更厉害的还在后面呢</p>
 
       
     </div>
@@ -441,8 +485,8 @@ My brother is in class-7
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/22/input-method-latin/" rel="next" title="Android 重启后恢复Latin输入法的问题">
-                <i class="fa fa-chevron-left"></i> Android 重启后恢复Latin输入法的问题
+              <a href="/2017/06/25/regex-3/" rel="next" title="一个神奇高效的工具-正则表达式（三）">
+                <i class="fa fa-chevron-left"></i> 一个神奇高效的工具-正则表达式（三）
               </a>
             
           </div>
@@ -450,10 +494,6 @@ My brother is in class-7
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/25/regex-2/" rel="prev" title="一个神奇高效的工具-正则表达式（二）">
-                一个神奇高效的工具-正则表达式（二） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -584,7 +624,7 @@ My brother is in class-7
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是正则表达式"><span class="nav-number">1.</span> <span class="nav-text">什么是正则表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何学习正则表达式"><span class="nav-number">2.</span> <span class="nav-text">如何学习正则表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匹配"><span class="nav-number">3.</span> <span class="nav-text">匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#纯文本匹配"><span class="nav-number">3.1.</span> <span class="nav-text">纯文本匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#任意字符的匹配"><span class="nav-number">3.2.</span> <span class="nav-text">任意字符的匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何匹配"><span class="nav-number">3.3.</span> <span class="nav-text">如何匹配.</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#回顾上一篇"><span class="nav-number">1.</span> <span class="nav-text">回顾上一篇</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重复匹配"><span class="nav-number">2.</span> <span class="nav-text">重复匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#至少匹配一次"><span class="nav-number">2.1.</span> <span class="nav-text">至少匹配一次</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匹配任意次数"><span class="nav-number">2.2.</span> <span class="nav-text">匹配任意次数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0-or-1"><span class="nav-number">2.3.</span> <span class="nav-text">0 or 1</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指定次数"><span class="nav-number">3.</span> <span class="nav-text">指定次数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#指定某个次数"><span class="nav-number">3.1.</span> <span class="nav-text">指定某个次数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指定匹配区间"><span class="nav-number">3.2.</span> <span class="nav-text">指定匹配区间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置匹配下限"><span class="nav-number">3.3.</span> <span class="nav-text">设置匹配下限</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#贪婪的元字符"><span class="nav-number">4.</span> <span class="nav-text">贪婪的元字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
