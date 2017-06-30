@@ -102,7 +102,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/06/16/pc-no-network-dnsmasq/index.html">
 <meta property="og:site_name" content="热爱，热情，乐此不疲">
 <meta property="og:description" content="问题由来前段时间，公司的一款产品，使用了新的一网通框架，发现PC端无法访问内网的域名，导致某个功能无法正常运转，这个问题交到我手上，刚开始对这一方面实在是不熟悉，不知道从哪里入手，后来经过对计算机网络知识的了解，以及一些代码脚本的研读，发现是因为dnsmasq的配置出现了问题。  dnsmasq简单介绍Dnsmasq 提供 DNS 缓存和 DHCP 服务功能。作为域名解析服务器(DNS)，dns">
-<meta property="og:updated_time" content="2017-06-24T07:31:24.068Z">
+<meta property="og:updated_time" content="2017-06-30T11:45:16.180Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一网通PC无法解析内网域名-Dnsmasq">
 <meta name="twitter:description" content="问题由来前段时间，公司的一款产品，使用了新的一网通框架，发现PC端无法访问内网的域名，导致某个功能无法正常运转，这个问题交到我手上，刚开始对这一方面实在是不熟悉，不知道从哪里入手，后来经过对计算机网络知识的了解，以及一些代码脚本的研读，发现是因为dnsmasq的配置出现了问题。  dnsmasq简单介绍Dnsmasq 提供 DNS 缓存和 DHCP 服务功能。作为域名解析服务器(DNS)，dns">
@@ -376,7 +376,7 @@
 <h2 id="与问题相关"><a href="#与问题相关" class="headerlink" title="与问题相关"></a>与问题相关</h2><p>以上分类介绍了与dnsmasq配置相关的一些选项，本问题出现的问题，主要原因就是在配置DNS服务器的时候，本来的措施是直接在dnsmasq.conf中写入固定的dns，并没有根据网络变化和状况去更新上游的dns服务器导致的，针对这个问题，我们在配置文件中进行了如下的更改<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span>echo "no-resolv" &gt;&gt; "$dns_tfile"</div><div class="line"><span class="meta">#</span>echo "no-poll" &gt;&gt; "$dns_tfile"</div><div class="line">echo "resolv-file=/data/misc/wifi/resolv.dnsmasq.conf" &gt;&gt; "$dns_tfile"</div><div class="line">echo "clear-on-reload" &gt;&gt; "$dns_tfile"</div></pre></td></tr></table></figure></p>
 <p>这里的/data/misc/wifi/resolv.dnsmasq.conf即为dns上游服务器的枚举文件，格式如下<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">nameserver 114.114.114.114</div><div class="line">nameserver 8.8.8.8</div></pre></td></tr></table></figure></p>
 <p>这样就可以配置dns的上游服务器，使得动态的访问了。</p>
-<h2 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h2><p>dns上游服务器配置文件/data/misc/wifi/resolv.dnsmasq.conf的生成我们将在下一节<a href="https://shijie93.github.io/2017/06/16/pc-no-network-rc/" target="_blank" rel="external">一网通PC无法解析内网域名-dnsmasq–dns上游服务器的动态配置</a>中解析</p>
+<h2 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h2><p>dns上游服务器配置文件/data/misc/wifi/resolv.dnsmasq.conf的生成我们将在下一节<a href="http://codingsj.com/2017/06/16/pc-no-network-rc/" target="_blank" rel="external">一网通PC无法解析内网域名-dnsmasq–dns上游服务器的动态配置</a>中解析</p>
 
       
     </div>
@@ -505,7 +505,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

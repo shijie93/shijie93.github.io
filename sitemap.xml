@@ -2,30 +2,51 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://codingsj.com/about/index.html</loc>
+    <loc>http://codingsj.com/2017/06/16/pc-no-network-rc/</loc>
     
-    <lastmod>2017-06-29T03:47:09.450Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://codingsj.com/2017/06/26/regex-4/</loc>
-    
-    <lastmod>2017-06-27T07:20:19.140Z</lastmod>
+    <lastmod>2017-06-30T11:45:49.112Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://codingsj.com/2017/06/25/regex-3/</loc>
+    <loc>http://codingsj.com/2017/06/16/pc-no-network-dnsmasq/</loc>
     
-    <lastmod>2017-06-25T12:47:00.272Z</lastmod>
+    <lastmod>2017-06-30T11:45:16.180Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://codingsj.com/2017/06/25/regex-2/</loc>
     
-    <lastmod>2017-06-25T06:45:05.692Z</lastmod>
+    <lastmod>2017-06-30T11:44:22.239Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://codingsj.com/2017/06/25/regex-3/</loc>
+    
+    <lastmod>2017-06-30T11:44:03.519Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://codingsj.com/2017/06/26/regex-4/</loc>
+    
+    <lastmod>2017-06-30T11:43:38.199Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://codingsj.com/2017/06/30/regex-5/</loc>
+    
+    <lastmod>2017-06-30T11:41:21.014Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://codingsj.com/about/index.html</loc>
+    
+    <lastmod>2017-06-29T03:47:09.450Z</lastmod>
     
   </url>
   
@@ -68,20 +89,6 @@
     <loc>http://codingsj.com/2017/06/20/wifi-softap-stop/</loc>
     
     <lastmod>2017-06-24T07:31:37.663Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://codingsj.com/2017/06/16/pc-no-network-rc/</loc>
-    
-    <lastmod>2017-06-24T07:31:30.337Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://codingsj.com/2017/06/16/pc-no-network-dnsmasq/</loc>
-    
-    <lastmod>2017-06-24T07:31:24.068Z</lastmod>
     
   </url>
   
