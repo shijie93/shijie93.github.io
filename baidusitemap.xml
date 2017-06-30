@@ -4,8 +4,88 @@
 
     
   <url>
+    <loc>http://codingsj.com/2017/06/25/regex-1/</loc>
+    <lastmod>2017-06-30T14:39:55.664Z</lastmod>
+    <data>
+        <display>
+        <title>一个神奇高效的工具-正则表达式（一）</title>
+        <pubTime>2017-06-25T02:55:09.000Z</pubTime>
+        
+        <tag>regex</tag>
+         
+         
+           
+             
+              <breadCrumb title="工具" url="http://codingsj.com/categories/%E5%B7%A5%E5%85%B7/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://codingsj.com/2017/06/25/regex-2/</loc>
+    <lastmod>2017-06-30T14:39:21.884Z</lastmod>
+    <data>
+        <display>
+        <title>一个神奇高效的工具-正则表达式（二）</title>
+        <pubTime>2017-06-25T05:49:15.000Z</pubTime>
+        
+        <tag>regex</tag>
+         
+         
+           
+             
+              <breadCrumb title="工具" url="http://codingsj.com/categories/%E5%B7%A5%E5%85%B7/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://codingsj.com/2017/06/25/regex-3/</loc>
+    <lastmod>2017-06-30T14:38:53.960Z</lastmod>
+    <data>
+        <display>
+        <title>一个神奇高效的工具-正则表达式（三）</title>
+        <pubTime>2017-06-25T11:08:14.000Z</pubTime>
+        
+        <tag>regex</tag>
+         
+         
+           
+             
+              <breadCrumb title="工具" url="http://codingsj.com/categories/%E5%B7%A5%E5%85%B7/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://codingsj.com/2017/06/26/regex-4/</loc>
+    <lastmod>2017-06-30T14:38:16.013Z</lastmod>
+    <data>
+        <display>
+        <title>一个神奇高效的工具-正则表达式（四）</title>
+        <pubTime>2017-06-26T12:12:46.000Z</pubTime>
+        
+        <tag>regex</tag>
+         
+         
+           
+             
+              <breadCrumb title="工具" url="http://codingsj.com/categories/%E5%B7%A5%E5%85%B7/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://codingsj.com/2017/06/30/regex-5/</loc>
-    <lastmod>2017-06-30T14:34:12.481Z</lastmod>
+    <lastmod>2017-06-30T14:37:56.769Z</lastmod>
     <data>
         <display>
         <title>一个神奇高效的工具-正则表达式（五）</title>
@@ -63,86 +143,6 @@
     </url>
 
     
-  <url>
-    <loc>http://codingsj.com/2017/06/25/regex-2/</loc>
-    <lastmod>2017-06-30T11:44:22.239Z</lastmod>
-    <data>
-        <display>
-        <title>一个神奇高效的工具-正则表达式（二）</title>
-        <pubTime>2017-06-25T05:49:15.000Z</pubTime>
-        
-        <tag>regex</tag>
-         
-         
-           
-             
-              <breadCrumb title="工具" url="http://codingsj.com/categories/%E5%B7%A5%E5%85%B7/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://codingsj.com/2017/06/25/regex-3/</loc>
-    <lastmod>2017-06-30T11:44:03.519Z</lastmod>
-    <data>
-        <display>
-        <title>一个神奇高效的工具-正则表达式（三）</title>
-        <pubTime>2017-06-25T11:08:14.000Z</pubTime>
-        
-        <tag>regex</tag>
-         
-         
-           
-             
-              <breadCrumb title="工具" url="http://codingsj.com/categories/%E5%B7%A5%E5%85%B7/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://codingsj.com/2017/06/26/regex-4/</loc>
-    <lastmod>2017-06-30T11:43:38.199Z</lastmod>
-    <data>
-        <display>
-        <title>一个神奇高效的工具-正则表达式（四）</title>
-        <pubTime>2017-06-26T12:12:46.000Z</pubTime>
-        
-        <tag>regex</tag>
-         
-         
-           
-             
-              <breadCrumb title="工具" url="http://codingsj.com/categories/%E5%B7%A5%E5%85%B7/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-    
-  <url>
-    <loc>http://codingsj.com/2017/06/25/regex-1/</loc>
-    <lastmod>2017-06-25T03:49:34.751Z</lastmod>
-    <data>
-        <display>
-        <title>一个神奇高效的工具-正则表达式（一）</title>
-        <pubTime>2017-06-25T02:55:09.000Z</pubTime>
-        
-        <tag>regex</tag>
-         
-         
-           
-             
-              <breadCrumb title="工具" url="http://codingsj.com/categories/%E5%B7%A5%E5%85%B7/"/>
-          
-        </display>
-    </data>
-    </url>
-
     
   <url>
     <loc>http://codingsj.com/2017/06/16/linux-directory-authority/</loc>
