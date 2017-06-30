@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="regex," />
 
 
 
@@ -95,16 +95,17 @@
 
 
 
-<meta name="description" content="这是一个有趣的程序员的博客">
+<meta name="description" content="回顾上一篇一个神奇高效的工具-正则表达式（四） 位置匹配前面几节，我们主要介绍了使用各种各样的元字符使我们的模式能够满足重复匹配，至此，你可以解决很多问题了。下面通过一个场景来引出本节的主旨 The cat scattered his food all over the room. 我们需要找出所有“猫”的单词-cat： 模式：cat 是的，那只猫被我们找到了，可是它所做的事儿，也被我们”找到”了">
+<meta name="keywords" content="regex">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Regex-5">
+<meta property="og:title" content="一个神奇高效的工具-正则表达式（五）">
 <meta property="og:url" content="http://yoursite.com/2017/06/30/regex-5/index.html">
 <meta property="og:site_name" content="热爱，热情，乐此不疲">
-<meta property="og:description" content="这是一个有趣的程序员的博客">
-<meta property="og:updated_time" content="2017-06-30T11:41:21.014Z">
+<meta property="og:description" content="回顾上一篇一个神奇高效的工具-正则表达式（四） 位置匹配前面几节，我们主要介绍了使用各种各样的元字符使我们的模式能够满足重复匹配，至此，你可以解决很多问题了。下面通过一个场景来引出本节的主旨 The cat scattered his food all over the room. 我们需要找出所有“猫”的单词-cat： 模式：cat 是的，那只猫被我们找到了，可是它所做的事儿，也被我们”找到”了">
+<meta property="og:updated_time" content="2017-06-30T14:34:12.481Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Regex-5">
-<meta name="twitter:description" content="这是一个有趣的程序员的博客">
+<meta name="twitter:title" content="一个神奇高效的工具-正则表达式（五）">
+<meta name="twitter:description" content="回顾上一篇一个神奇高效的工具-正则表达式（四） 位置匹配前面几节，我们主要介绍了使用各种各样的元字符使我们的模式能够满足重复匹配，至此，你可以解决很多问题了。下面通过一个场景来引出本节的主旨 The cat scattered his food all over the room. 我们需要找出所有“猫”的单词-cat： 模式：cat 是的，那只猫被我们找到了，可是它所做的事儿，也被我们”找到”了">
 
 
 
@@ -138,7 +139,7 @@
 
 
 
-  <title>Regex-5 | 热爱，热情，乐此不疲</title>
+  <title>一个神奇高效的工具-正则表达式（五） | 热爱，热情，乐此不疲</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -295,7 +296,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Regex-5</h1>
+          <h1 class="post-title" itemprop="name headline">一个神奇高效的工具-正则表达式（五）</h1>
         
 
         <div class="post-meta">
@@ -317,6 +318,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工具/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -342,7 +365,40 @@
       
 
       
-        
+        <h2 id="回顾上一篇"><a href="#回顾上一篇" class="headerlink" title="回顾上一篇"></a>回顾上一篇</h2><p><a href="http://codingsj.com/2017/06/26/regex-4/" target="_blank" rel="external">一个神奇高效的工具-正则表达式（四）</a></p>
+<h2 id="位置匹配"><a href="#位置匹配" class="headerlink" title="位置匹配"></a>位置匹配</h2><p>前面几节，我们主要介绍了使用各种各样的元字符使我们的模式能够满足重复匹配，至此，你可以解决很多问题了。下面通过一个场景来引出本节的主旨</p>
+<pre><code>The cat scattered his food all over the room.
+</code></pre><p>我们需要找出所有“猫”的单词-cat：</p>
+<pre><code>模式：cat
+</code></pre><p>是的，那只猫被我们找到了，可是它所做的事儿，也被我们”找到”了 – s<strong>cat</strong>tered</p>
+<blockquote>
+<p>如何确保模式能够满足我们的需求，又不能找到我们不想要的结果，这往往是需要多加揣摩的</p>
+</blockquote>
+<p>是的，我们虽然直接的用cat作为了我们的模式，但是cat毕竟可能出现在文本的任意地方，我们没有对他的位置进行任何的限定，这自然会”一网打尽”。</p>
+<p>本节，我们主要介绍如何结合位置的一些小技巧，让我们的模式更加的健壮。</p>
+<h3 id="边界匹配-单词边界"><a href="#边界匹配-单词边界" class="headerlink" title="边界匹配-单词边界"></a>边界匹配-单词边界</h3><p>还是上面的场景，如果我们可以增加一个限定，找寻一个单词，单词的文本为”cat”，那就搞定啦。</p>
+<blockquote>
+<p>在正则表达式中一个完整的单词，他的前后需要加上限定符’\b’</p>
+</blockquote>
+<pre><code>模式：\bcat\b
+</code></pre><p>使用单词边界的限定符来组成我们的模式，那么，这只坏坏的猫，终于被我们”抓到”了。</p>
+<blockquote>
+<p>当然，\bcat表示cat开头的单词，cat\b表示以cat结尾的单词，如前面提到的，\B就代表不是单词的边界，可用来找寻多余的空格</p>
+</blockquote>
+<h3 id="边界匹配-字符串边界"><a href="#边界匹配-字符串边界" class="headerlink" title="边界匹配-字符串边界"></a>边界匹配-字符串边界</h3><p>单词边界可以用来进行有关单词位置相关的匹配，字符串边界也有着类似的用途。开门见山：</p>
+<blockquote>
+<p>字符串开头用’^’，字符串结尾用’$’。’^’这个元字符我们已经介绍过了，当时的含义是取非，不过，这必须当它在”[]”内并且紧挨着左边的方括号时，它才有取非的作用，在本节，他发挥着字符串开头限定的作用。</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">url</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">loc</span>&gt;</span>http://codingsj.com/2017/06/16/pc-no-network-rc/<span class="tag">&lt;/<span class="name">loc</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">lastmod</span>&gt;</span>2017-06-30T11:45:49.112Z<span class="tag">&lt;/<span class="name">lastmod</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">url</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">url</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">loc</span>&gt;</span>http://codingsj.com/2017/06/16/pc-no-network-dnsmasq/<span class="tag">&lt;/<span class="name">loc</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">lastmod</span>&gt;</span>2017-06-30T11:45:16.180Z<span class="tag">&lt;/<span class="name">lastmod</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">url</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>匹配标签loc内的内容</p>
+<pre><code>模式：^&lt;loc&gt;.*&lt;/loc&gt;
+</code></pre><p>‘^’代表从行首开始匹配的字符串，看似正确的模式，读者是否能看出存在什么问题？</p>
+<blockquote>
+<p>可以在编辑器中尝试着匹配一下，尝试着用上一节介绍的内容解决这个问题吧，do it！</p>
+<p>思考一下，^.*$什么情况下得不到匹配</p>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本节内容比较简单，量也不较少，但是要注意实践，很多问题都是在调试的时候出现的</p>
+
       
     </div>
 
@@ -368,6 +424,12 @@
     </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/regex/" rel="tag"># regex</a>
+          
+        </div>
       
 
       
@@ -435,8 +497,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -498,6 +569,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#回顾上一篇"><span class="nav-number">1.</span> <span class="nav-text">回顾上一篇</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#位置匹配"><span class="nav-number">2.</span> <span class="nav-text">位置匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#边界匹配-单词边界"><span class="nav-number">2.1.</span> <span class="nav-text">边界匹配-单词边界</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#边界匹配-字符串边界"><span class="nav-number">2.2.</span> <span class="nav-text">边界匹配-字符串边界</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
